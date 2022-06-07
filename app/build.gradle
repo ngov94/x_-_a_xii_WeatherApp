@@ -55,4 +55,8 @@ dependencies {
 //    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
 //    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    //Location
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
 }

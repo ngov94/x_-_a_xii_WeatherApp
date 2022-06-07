@@ -7,9 +7,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
+class WeatherViewModel() : ViewModel() {
     var currentWeather = MutableLiveData<CurrentWeather>()
-
+    var repo = WeatherRepository(RetroApiInterface.create())
 
     fun getCurrentWeather(latitude: String, longitude: String, apiKey: String, unit: String) {
         CoroutineScope(Dispatchers.IO).launch {
