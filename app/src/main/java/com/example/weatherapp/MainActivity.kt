@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 //<----Codes for Google autocomplete Fragment. More here: https://developers.google.cn/maps/documentation/places/android-sdk/autocomplete--->
-        Places.initialize(getApplicationContext(), googleApi)
+        Places.initialize(applicationContext, googleApi)
         placesClient = Places.createClient(this)
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragment =
