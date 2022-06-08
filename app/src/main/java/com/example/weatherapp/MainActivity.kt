@@ -90,10 +90,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         vm.currentCity.observe(this){
+            println(it)
             var city = it.results[0].components.city
             if(city == null) city = it.results[0].components.county
             var state = it.results[0].components.state
-            var country = it.results[0].components.country
+            var country = it.results[0].components.countryCode.uppercase()
             var placeName = "$city, $state, $country"
             tv_city_name.text = placeName
         }
