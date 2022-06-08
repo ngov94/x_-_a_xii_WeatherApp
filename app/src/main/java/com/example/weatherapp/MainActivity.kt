@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 println("An error occurred: $status")
             }
         })
-//        <---End of Code for Google autocomplete Fragment --->
+//       <---End of Code for Google autocomplete Fragment --->
 
 
 
