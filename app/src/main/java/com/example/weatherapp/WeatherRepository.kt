@@ -9,4 +9,8 @@ class WeatherRepository(val inter: RetroApiInterface) {
         apiKey: String,
         unit: String
     ) = inter.getCurrentWeather(latitude, longitude, apiKey, unit)
+
+    suspend fun getGeoloaction(googleApi: String) = inter.getGeoloaction(googleApi)
+
+    suspend fun getCurrentCity(latLng:String, cagedDataKey:String) = inter.getCurrentCity(latLng, cagedDataKey)
 }

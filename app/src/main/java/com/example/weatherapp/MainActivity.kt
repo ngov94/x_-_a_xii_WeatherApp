@@ -21,16 +21,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var vm: WeatherViewModel
     lateinit var placesClient: PlacesClient
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
-        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"
-
-        Places.initialize(getApplicationContext(), googleApi)
-        placesClient = Places.createClient(this);
+        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
+        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
+        val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
 
         val intr = RetroApiInterface.create()
         val repo = WeatherRepository(intr)
@@ -38,6 +35,28 @@ class MainActivity : AppCompatActivity() {
 
         var units = "metric"  //imperial
 
+        vm.getGeoloaction(googleApi)
+
+        vm.currentLocation.observe(this){ it ->
+//            println(it)
+            var latitude = it.location.lat.toString()
+            var longitude = it.location.lng.toString()
+
+            vm.getCurrentCity("$latitude+$longitude", openCageDataKey)
+            vm.currentCity.observe(this){
+                var city = it.results[0].components.city
+                if(city == null) city = it.results[0].components.county
+                var state = it.results[0].components.state
+                var country = it.results[0].components.country
+                var placeName = "$city, $state, $country"
+                tv_city_name.text = placeName
+            }
+
+            vm.getCurrentWeather(latitude, longitude, weatherApiKey, units)
+        }
+//<----Code for Google autocomplete Fragment. More here: https://developers.google.cn/maps/documentation/places/android-sdk/autocomplete--->
+        Places.initialize(getApplicationContext(), googleApi)
+        placesClient = Places.createClient(this)
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragment =
             supportFragmentManager.findFragmentById(R.id.autocomplete_fragment)
@@ -62,11 +81,14 @@ class MainActivity : AppCompatActivity() {
                 println("An error occurred: $status")
             }
         })
+//        <---End of Code for Google autocomplete Fragment --->
+
+
 
         vm.currentWeather.observe(this) {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
-            println(pJson)
+//            println(pJson)
 
             tv_date_and_time.text = SimpleDateFormat("dd/M/yyyy hh:mm a").format(Date())
             tv_day_max_temp.text = "Max " + it.daily[0].temp.max.toString() + "º"
@@ -75,5 +97,6 @@ class MainActivity : AppCompatActivity() {
             tv_feels_like.text = "Feels like " + it.current.feelsLike.toString() + "º"
             tv_weather_type.text = it.current.weather[0].description.capitalize()
         }
+
     }
 }
