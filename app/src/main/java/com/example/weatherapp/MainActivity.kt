@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
 //            println(pJson)
-            tv_date_and_time.text = SimpleDateFormat("dd/M/yyyy hh:mm a").format(Date())
+            tv_date_and_time.text = SimpleDateFormat("dd MMMM yyyy hh:mm a").format(Date())
             tv_day_max_temp.text = "Max " + it.daily[0].temp.max.toString() + "º"
             tv_day_min_temp.text = "Min " + it.daily[0].temp.min.toString() + "º"
             tv_current_temp.text = it.current.temp.toString() + "º"
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             var city = it.results[0].components.city
             if(city == null) city = it.results[0].components.county
             var state = it.results[0].components.state
-            var country = it.results[0].components.countryCode.uppercase()
+            var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
             tv_city_name.text = placeName
         }
