@@ -1,16 +1,23 @@
-package com.example.weatherapp
+package com.example.weatherapp.ui.currentlocation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.GeolocationApi.Geolocation
 import com.example.weatherapp.ReverseGeocoding.CurrentCity
+import com.example.weatherapp.WeatherRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
+class CurrentLocationViewModel(val repo: WeatherRepository) : ViewModel() {
+//    private val _text = MutableLiveData<String>().apply {
+//        value = "This is current location Fragment"
+//    }
+//    val text: LiveData<String> = _text
+
     var currentWeather = MutableLiveData<AllWeather>()
     var currentLocation = MutableLiveData<Geolocation>()
     var currentCity = MutableLiveData<CurrentCity>()
