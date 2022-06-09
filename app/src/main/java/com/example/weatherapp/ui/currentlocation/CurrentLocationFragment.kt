@@ -33,14 +33,16 @@ class CurrentLocationFragment : Fragment() {
     lateinit var placesClient: PlacesClient
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val intr = RetroApiInterface.create()
         val repo = WeatherRepository(intr)
-        val currentLocationViewModel = ViewModelProvider(this).get(CurrentLocationViewModel(repo)::class.java)
+        val currentLocationViewModel = CurrentLocationViewModel(repo)
 
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -53,7 +55,6 @@ class CurrentLocationFragment : Fragment() {
         val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
         val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
         val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
-
 
 
         var units = "metric"  //imperial
@@ -72,7 +73,7 @@ class CurrentLocationFragment : Fragment() {
         Places.initialize(context, googleApi)
         placesClient = Places.createClient(context)
         // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment = autocomplete_fragment as AutocompleteSupportFragment
+        val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
 
         autocompleteFragment.setTypeFilter(TypeFilter.CITIES)
         // Specify the types of place data to return.
@@ -83,7 +84,7 @@ class CurrentLocationFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 println("Place: ${place.address}, ${place.latLng}")
-                tv_city_name.text = place.address
+                binding.tvCityName.text = place.address
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
@@ -101,12 +102,12 @@ class CurrentLocationFragment : Fragment() {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
 //            println(pJson)
-            tv_date_and_time.text = SimpleDateFormat("dd MMMM yyyy hh:mm a").format(Date())
-            tv_day_max_temp.text = "Max " + it.daily[0].temp.max.toString() + "º"
-            tv_day_min_temp.text = "Min " + it.daily[0].temp.min.toString() + "º"
-            tv_current_temp.text = it.current.temp.toString() + "º"
-            tv_feels_like.text = "Feels like " + it.current.feelsLike.toString() + "º"
-            tv_weather_type.text = it.current.weather[0].description.capitalize()
+            binding.tvDateAndTime.text = SimpleDateFormat("dd MMMM yyyy hh:mm a").format(Date())
+            binding.tvDayMaxTemp.text = "Max " + it.daily[0].temp.max.toString() + "º"
+            binding.tvDayMinTemp.text = "Min " + it.daily[0].temp.min.toString() + "º"
+            binding.tvCurrentTemp.text = it.current.temp.toString() + "º"
+            binding.tvFeelsLike.text = "Feels like " + it.current.feelsLike.toString() + "º"
+            binding.tvWeatherType.text = it.current.weather[0].description.capitalize()
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
@@ -116,9 +117,7 @@ class CurrentLocationFragment : Fragment() {
             var state = it.results[0].components.state
             var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
-            tv_city_name.text = placeName
-
-
+            binding.tvCityName.text = placeName
         }
 
         return root

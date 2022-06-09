@@ -1,7 +1,6 @@
 package com.example.weatherapp.ui.locations
 
-import android.icu.text.SimpleDateFormat
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapp.RetroApiInterface
-import com.example.weatherapp.WeatherRepository
-import com.example.weatherapp.WeatherViewModel
 import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
-import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_locations_fragment.*
-import java.util.*
+
 
 
 class LocationsFragment : Fragment() {

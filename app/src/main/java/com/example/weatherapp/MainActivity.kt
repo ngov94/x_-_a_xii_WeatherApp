@@ -21,20 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-//        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
-//        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
-//        val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
-//
-//        val intr = RetroApiInterface.create()
-//        val repo = WeatherRepository(intr)
-//        vm = WeatherViewModel(repo)
-//
-//        var units = "metric"  //imperial
-//
-//        vm.getGeoloaction(googleApi)
-
-        //----------------------------
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
