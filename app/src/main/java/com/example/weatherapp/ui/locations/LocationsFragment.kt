@@ -13,8 +13,6 @@ import com.example.weatherapp.RetroApiInterface
 import com.example.weatherapp.WeatherRepository
 import com.example.weatherapp.WeatherViewModel
 import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
-import com.example.weatherapp.databinding.ActivityWeeklyFragmentBinding
-import com.example.weatherapp.ui.weekly.WeeklyViewModel
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_locations_fragment.*
 import java.util.*

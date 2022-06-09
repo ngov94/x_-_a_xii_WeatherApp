@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Revature/Training/AndroidProjects/x_-_a_xii_Weather/app/src/main/res/drawable-v24/ic_baseline_map_24.xml" value="0.1685" />
+        <entry key="..\:/Revature/Training/AndroidProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1685" />
+        <entry key="..\:/Revature/Training/AndroidProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.1685" />
+        <entry key="..\:/Revature/Training/AndroidProjects/x_-_a_xii_Weather/app/src/main/res/layout/activity_locations_fragment.xml" value="0.27291666666666664" />
+        <entry key="..\:/Revature/Training/AndroidProjects/x_-_a_xii_Weather/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Revature/Training/AndroidProjects/x_-_a_xii_Weather/app/src/main/res/menu/menu_main.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/clear_bg.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable/clouds_bg.xml" value="0.1235" />
@@ -13,7 +19,7 @@
         <entry key="app/src/main/res/drawable/rainy_bg.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable/snow_bg.xml" value="0.1235" />
         <entry key="app/src/main/res/drawable/thunderstrom_bg.xml" value="0.1235" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1969111969111969" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.29025641025641025" />
       </map>
     </option>
