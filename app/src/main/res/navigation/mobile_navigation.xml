@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/locationsFragment2">
+    app:startDestination="@+id/currentlocationFragment2">
 
+    <fragment
+        android:id="@+id/currentlocationFragment2"
+        android:name="com.example.weatherapp.ui.currentlocation.CurrentLocationFragment"
+        android:label="fragment_current_location"
+        tools:layout="@layout/fragment_current_location" />
     <fragment
         android:id="@+id/locationsFragment2"
         android:name="com.example.weatherapp.ui.locations.LocationsFragment"
@@ -13,11 +18,11 @@
     <fragment
         android:id="@+id/weeklyFragment2"
         android:name="com.example.weatherapp.ui.weekly.WeeklyFragment"
-        android:label="activity_weekly_fragment"
-        tools:layout="@layout/activity_weekly_fragment" />
+        android:label="fragment_weekly"
+        tools:layout="@layout/fragment_weekly" />
     <fragment
         android:id="@+id/mapFragment2"
         android:name="com.example.weatherapp.ui.map.MapFragment"
-        android:label="activity_map_fragment"
-        tools:layout="@layout/activity_map_fragment" />
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>
