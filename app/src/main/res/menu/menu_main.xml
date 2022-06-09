@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-    android:id="@+id/locationsFragment"
+    android:id="@+id/locationsFragment2"
     android:icon="@drawable/ic_baseline_location_on_24"
     android:title="Locations"/>
     <item
-        android:id="@+id/weeklyFragment"
+        android:id="@+id/weeklyFragment2"
         android:icon="@drawable/ic_baseline_today_24"
         android:title="Weekly"/>
     <item
-        android:id="@+id/mapFragment"
+        android:id="@+id/mapFragment2"
         android:icon="@drawable/ic_baseline_map_24"
         android:title="Map"/>
 </menu>

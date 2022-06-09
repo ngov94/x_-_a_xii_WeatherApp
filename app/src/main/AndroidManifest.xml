@@ -15,24 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherApp"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.weekly.WeeklyFragment"
-            android:exported="false" />
-        <activity
-            android:name=".ui.map.MapFragment"
-            android:exported="false" />
-        <activity
-            android:name=".ui.locations.LocationsFragment"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity4"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity3"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
