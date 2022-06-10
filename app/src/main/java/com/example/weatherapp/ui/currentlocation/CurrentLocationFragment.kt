@@ -84,7 +84,7 @@ class CurrentLocationFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 println("Place: ${place.address}, ${place.latLng}")
-                binding.tvCityName.text = place.address
+                //binding.tvCityName.text = place.address TODO : Please insert this text into the searchbar // searchViewID.setQuery(searchToken, false);
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
@@ -101,13 +101,20 @@ class CurrentLocationFragment : Fragment() {
         currentLocationViewModel.currentWeather.observe(viewLifecycleOwner) {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
-//            println(pJson)
-            binding.tvDateAndTime.text = SimpleDateFormat("dd MMMM yyyy hh:mm a").format(Date())
-            binding.tvDayMaxTemp.text = "Max " + it.daily[0].temp.max.toString() + "º"
-            binding.tvDayMinTemp.text = "Min " + it.daily[0].temp.min.toString() + "º"
-            binding.tvCurrentTemp.text = it.current.temp.toString() + "º"
-            binding.tvFeelsLike.text = "Feels like " + it.current.feelsLike.toString() + "º"
-            binding.tvWeatherType.text = it.current.weather[0].description.capitalize()
+//          println(pJson)
+            //inserting date in shortened format
+
+            binding.currentDate.text = SimpleDateFormat("MMM dd").format(Date()).toString()
+            binding.currentMaxTemp.text = it.daily[0].temp.max.toString() + "°" //detail
+            binding.currentMinTemp.text = it.daily[0].temp.min.toString() + "°" //detail
+            binding.currentTemperature.text = it.current.temp.toString() + "°"
+            binding.currentFeelsLike.text = it.current.feelsLike.toString() + "°" //detail
+            binding.currentConditions.text = it.current.weather[0].description//.capitalize()
+
+            //TODO : Bindings todo = Humidity, Pressure, UV Index, Dew Point, Visibility
+            //There are currently 5 hourly update textview // Please let me know if we need less or more
+            //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
+            //Each view contained in HourlyView has a corresponding icon, temp, and time
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
@@ -117,8 +124,12 @@ class CurrentLocationFragment : Fragment() {
             var state = it.results[0].components.state
             var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
-            binding.tvCityName.text = placeName
+            //binding.tvCityName.text = placeName TODO : Please insert this into the searchbar // searchViewID.setQuery(searchToken, false);
         }
+
+
+        //changes metric when view is clicked
+        //binding.metric_change_button.setOnClickListener {} TODO : Please set an on-click listener to change the metric (Fahrenheit - Celcius)
 
         return root
     }

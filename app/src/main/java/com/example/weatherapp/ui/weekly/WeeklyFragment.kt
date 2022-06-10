@@ -30,10 +30,14 @@ class WeeklyFragment : Fragment() {
         _binding = FragmentWeeklyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textWeekly
+
+        //TODO : please set the date range and attach it to the header named date_range_label
+        //TODO : remove this if you have a better idea
+
+/*        val textView: TextView = binding.textWeekly
         weeklyViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
+        }*/
         return root
     }
 
