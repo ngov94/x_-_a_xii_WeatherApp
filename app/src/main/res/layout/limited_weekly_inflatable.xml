@@ -35,6 +35,7 @@
                     android:id="@+id/element_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/google_sans_bold"
                     android:text="Today"
                     android:textSize="24dp"/>
                 <LinearLayout
@@ -45,12 +46,14 @@
                     android:id="@+id/element_degrees"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/google_sans_regular"
                     android:text="89"
                     android:textSize="24dp"/>
                     <TextView
                         android:id="@+id/element_metric"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/google_sans_regular"
                         android:text="F°"
                         android:textSize="24dp"/>
                 </LinearLayout>
