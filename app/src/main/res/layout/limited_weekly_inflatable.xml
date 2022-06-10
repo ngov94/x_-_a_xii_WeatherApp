@@ -18,51 +18,72 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/outlined_box"/>
+            android:src="@drawable/outlined_box"
+            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="1">
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:orientation="vertical">
+                android:weightSum="1"
+                android:layout_gravity="center">
                 <TextView
-                    android:id="@+id/element_date"
+                    android:id="@+id/favorite_item_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/google_sans_bold"
-                    android:text="Today"
-                    android:textSize="24dp"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_gravity="center"
+                    android:textSize="36dp"
+                    android:text="75°/"
+                    android:layout_weight=".1"/>
                 <TextView
-                    android:id="@+id/element_degrees"
+                    android:id="@+id/favorite_item_min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/google_sans_regular"
-                    android:text="89"
-                    android:textSize="24dp"/>
-                    <TextView
-                        android:id="@+id/element_metric"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/google_sans_regular"
-                        android:text="F°"
-                        android:textSize="24dp"/>
-                </LinearLayout>
+                    android:layout_gravity="center"
+                    android:textSize="27dp"
+                    android:text="35°"
+                    android:layout_weight=".1"
+                    />
+                <ImageView
+                    android:id="@+id/favorite_item_current_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="18dp"
+                    android:src="@drawable/clear"
+                    android:layout_gravity="center"
+                    android:layout_weight=".6"/>
+
+                <ImageView
+                    android:id="@+id/favorite_item_precipitation_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:textSize="18dp"
+                    android:src="@drawable/drop"
+                    android:layout_gravity="center"
+                    android:layout_weight=".1"/>
+                <TextView
+                    android:id="@+id/favorite_item_precipitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:layout_gravity="center"
+                    android:text="5%"
+                    android:layout_weight=".1"/>
             </LinearLayout>
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="0.5"
-                android:src="@drawable/clear"/>
+            <TextView
+                android:id="@+id/favorite_item_location"
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/google_sans_bold"
+                android:text="Mexico, Parangaricutirimicuaro"
+                android:textColo="@color/black"/>
+
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

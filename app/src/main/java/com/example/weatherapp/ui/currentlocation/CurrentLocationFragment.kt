@@ -116,6 +116,7 @@ class CurrentLocationFragment : Fragment() {
             //There are currently 5 hourly update textview // Please let me know if we need less or more
             //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
             //Each view contained in HourlyView has a corresponding icon, temp, and time
+            //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
