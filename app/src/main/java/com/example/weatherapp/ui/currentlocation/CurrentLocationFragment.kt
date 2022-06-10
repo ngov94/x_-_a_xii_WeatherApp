@@ -58,7 +58,8 @@ class CurrentLocationFragment : Fragment() {
 
 
         var units = "metric"  //imperial
-
+        //TODO : update current_degree_metric along with calculations
+        //TODO : several gradients depending on weather
         currentLocationViewModel.getGeoloaction(googleApi)
 
         currentLocationViewModel.currentLocation.observe(viewLifecycleOwner){ it ->
