@@ -11,6 +11,8 @@ import retrofit2.http.*
 
 interface RetroApiInterface {
 
+
+
     @GET("onecall")
     suspend fun getCurrentWeather(
         @Query("lat") latitude: String,
