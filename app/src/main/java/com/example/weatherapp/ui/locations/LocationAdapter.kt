@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.APIResponse.Daily
 import com.example.weatherapp.R
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class LocationAdapter(private val locationList: List<Daily>) : RecyclerView.Adapter<ViewHolder>(){
+class LocationAdapter(private val locationList: List<AllWeather>) : RecyclerView.Adapter<ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val locationItemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.limited_favorites_inflatable, parent, false)
@@ -22,20 +23,14 @@ class LocationAdapter(private val locationList: List<Daily>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = locationList[position]
 
-        var date = SimpleDateFormat("EEE d").format(Date(item.dt.toLong()*1000))
-        var today = SimpleDateFormat("EEE d").format(Date())
+
+        holder.itemCurTextView.text = item.current.temp.roundToInt().toString()+ "°"
+        holder.itemMaxTextView.text = item.daily.first().temp.max.roundToInt().toString()+ "°"
+        holder.itemMinTextView.text = item.daily.first().temp.min.roundToInt().toString()+ "°"
+        holder.itemPrecipTextView.text = (item.daily.first().pop*100).roundToInt().toString()+ "%"
 
 
-        holder.itemMaxTextView.text = item.temp.max.roundToInt().toString()+ "°"
-        holder.itemMinTextView.text = item.temp.min.roundToInt().toString()+ "°"
-        holder.itemPrecipTextView.text = (item.pop*100).roundToInt().toString()+ "%"
-        if(date.equals(today)){
-            holder.itemDateTextView.text = "Today"
-        }else{
-            holder.itemDateTextView.text = date
-        }
-
-        var icon = when (item.weather.first().icon){
+        var icon = when (item.daily.first().weather.first().icon){
             "01d" -> R.drawable.w_clear_sky_day
             "01n" -> R.drawable.w_clear_sky_night
             "02d" -> R.drawable.w_few_clouds_day
@@ -71,10 +66,11 @@ class LocationAdapter(private val locationList: List<Daily>) : RecyclerView.Adap
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    var itemMaxTextView: TextView = view.findViewById(R.id.weekly_item_max)
-    var itemMinTextView: TextView = view.findViewById(R.id.weekly_item_min)
-    var itemIconImageView: ImageView = view.findViewById(R.id.weekly_item_current_icon)
-    var itemPrecipTextView: TextView = view.findViewById(R.id.weekly_item_precipitation)
-    var itemDateTextView: TextView = view.findViewById(R.id.weekly_item_date)
+    var itemCurTextView: TextView = view.findViewById(R.id.fav_item_currtemp)
+    var itemMaxTextView: TextView = view.findViewById(R.id.fav_item_maxtemp)
+    var itemMinTextView: TextView = view.findViewById(R.id.fav_item_mintemp)
+    var itemIconImageView: ImageView = view.findViewById(R.id.fav_item_icon)
+    var itemPrecipTextView: TextView = view.findViewById(R.id.fav_item_pop)
+    var itemLocationTextView: TextView = view.findViewById(R.id.fav_item_location)
 
 }

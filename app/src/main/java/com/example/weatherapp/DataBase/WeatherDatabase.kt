@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.weatherapp.ui.currentlocation.CurrentLocationFragment
 
 
-@Database(entities = [AllWeatherEntity::class, CityLatLong::class, PlaceName::class], version = 3, exportSchema = false)
+@Database(entities = [AllWeatherEntity::class, CityLatLong::class, PlaceName::class, FavLocations::class], version = 3, exportSchema = false)
 abstract class WeatherDatabase: RoomDatabase() {
     abstract fun weatherDao() : WeatherDao
 

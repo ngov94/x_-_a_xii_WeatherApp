@@ -6,20 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "favlocations")
 data class FavLocations(
-    val currentTemp: String,
-    val maxTemp: String,
-    val minTemp: String,
-    val date: String,
-    val feelsLike: String,
-    val weatherType: String,
-    val sunrise: String,
-    val sunset: String,
-    val humidity: String,
-    val windSpeed: String
-
+    val placeName: String,
+    val latitude: String,
+    val longitude: String
 ){
-    @PrimaryKey(autoGenerate = false)
-    var id:Int = 0
+    @PrimaryKey(autoGenerate = true)
+    var id:Int? = null
 }
 
 

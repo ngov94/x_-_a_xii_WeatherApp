@@ -13,7 +13,6 @@ import com.example.weatherapp.R
 import com.example.weatherapp.RetroApiInterface
 import com.example.weatherapp.WeatherRepository
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
-import com.example.weatherapp.ui.weekly.WeeklyFragment
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
