@@ -44,17 +44,9 @@ class WeeklyFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val intr = RetroApiInterface.create()
-        val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
-        val repo = WeatherRepository(intr, dao)
-        val vm = WeatherViewModel(repo)
-
 
         _binding = FragmentWeeklyBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
-
 
         //Date Range
         var dateNow = SimpleDateFormat("MMMM d").format(Date())
@@ -65,13 +57,14 @@ class WeeklyFragment : Fragment() {
 
         binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
 
+        // Weekly Recycler View
+        binding.futureRecycler.adapter = adapter
+        binding.futureRecycler.layoutManager = LinearLayoutManager(activity)
+
         setFragmentResultListener("key_to_weekly"){key,result ->
             weeklyList.addAll(result.get("daily") as List<Daily>)
             adapter.notifyDataSetChanged()
-            binding.futureRecycler.adapter = adapter
-            binding.futureRecycler.layoutManager = LinearLayoutManager(activity)
         }
-
 
         return root
     }
