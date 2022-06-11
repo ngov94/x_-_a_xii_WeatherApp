@@ -1,18 +1,19 @@
 package com.example.weatherapp.ui.currentlocation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import com.example.weatherapp.WeatherViewModel
+import com.example.weatherapp.DataBase.WeatherDatabase
 import com.example.weatherapp.R
 import com.example.weatherapp.RetroApiInterface
 import com.example.weatherapp.WeatherRepository
-import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
-import com.example.weatherapp.ui.locations.LocationsViewModel
+import com.example.weatherapp.ui.weekly.WeeklyFragment
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -21,7 +22,6 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.fragment_current_location.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,8 +41,9 @@ class CurrentLocationFragment : Fragment() {
     ): View {
 
         val intr = RetroApiInterface.create()
-        val repo = WeatherRepository(intr)
-        val currentLocationViewModel = CurrentLocationViewModel(repo)
+        val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
+        val repo = WeatherRepository(intr, dao)
+        val currentLocationViewModel = WeatherViewModel(repo)
 
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -58,7 +59,8 @@ class CurrentLocationFragment : Fragment() {
 
 
         var units = "metric"  //imperial
-
+        //TODO : update current_degree_metric along with calculations
+        //TODO : several gradients depending on weather
         currentLocationViewModel.getGeoloaction(googleApi)
 
         currentLocationViewModel.currentLocation.observe(viewLifecycleOwner){ it ->
@@ -84,7 +86,7 @@ class CurrentLocationFragment : Fragment() {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 println("Place: ${place.address}, ${place.latLng}")
-                binding.tvCityName.text = place.address
+                //binding.tvCityName.text = place.address TODO : Please insert this text into the searchbar // searchViewID.setQuery(searchToken, false);
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
@@ -101,13 +103,23 @@ class CurrentLocationFragment : Fragment() {
         currentLocationViewModel.currentWeather.observe(viewLifecycleOwner) {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
-//            println(pJson)
-            binding.tvDateAndTime.text = SimpleDateFormat("dd MMMM yyyy hh:mm a").format(Date())
-            binding.tvDayMaxTemp.text = "Max " + it.daily[0].temp.max.toString() + "º"
-            binding.tvDayMinTemp.text = "Min " + it.daily[0].temp.min.toString() + "º"
-            binding.tvCurrentTemp.text = it.current.temp.toString() + "º"
-            binding.tvFeelsLike.text = "Feels like " + it.current.feelsLike.toString() + "º"
-            binding.tvWeatherType.text = it.current.weather[0].description.capitalize()
+//          println(pJson)
+            //inserting date in shortened format
+
+            binding.currentDate.text = SimpleDateFormat("MMM dd").format(Date()).toString()
+            binding.currentMaxTemp.text = it.daily[0].temp.max.toString() + "°" //detail
+            binding.currentMinTemp.text = it.daily[0].temp.min.toString() + "°" //detail
+            binding.currentTemperature.text = it.current.temp.toString() + "°"
+            binding.currentFeelsLike.text = it.current.feelsLike.toString() + "°" //detail
+            binding.currentConditions.text = it.current.weather[0].description//.capitalize()
+
+            //TODO : Bindings todo = Humidity, Pressure, UV Index, Dew Point, Visibility
+            //There are currently 5 hourly update textview // Please let me know if we need less or more
+            //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
+            //Each view contained in HourlyView has a corresponding icon, temp, and time
+            //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
+
+            setFragmentResult("key_to_weekly", bundleOf("daily" to it.daily))
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
@@ -117,8 +129,12 @@ class CurrentLocationFragment : Fragment() {
             var state = it.results[0].components.state
             var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
-            binding.tvCityName.text = placeName
+            //binding.tvCityName.text = placeName TODO : Please insert this into the searchbar // searchViewID.setQuery(searchToken, false);
         }
+
+
+        //changes metric when view is clicked
+        //binding.metric_change_button.setOnClickListener {} TODO : Please set an on-click listener to change the metric (Fahrenheit - Celcius)
 
         return root
     }

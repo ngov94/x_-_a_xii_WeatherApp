@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
@@ -28,10 +27,13 @@ class LocationsFragment : Fragment() {
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        /**TODO : There's a SearchView users can use to add search for locations,but please feel free to remove
+        if you've got a better idea**/
+/*
         val textView: TextView = binding.textLocations
         locationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
+        }*/
         return root
     }
 
