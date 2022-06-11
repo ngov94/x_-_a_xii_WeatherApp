@@ -19,6 +19,7 @@ class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
 
     init {
         favLocationsList = repo.getFavLocationsList()
+
     }
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
@@ -27,10 +28,11 @@ class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
 
     fun insertFavLocation(favLocation: FavLocations) = repo.insertFavLocation(favLocation)
 
-    fun getFavLocationWeatherList(apiKey: String, unit: String){
+    fun getFavLocationWeatherList(favLocation: List<FavLocations>, apiKey: String, unit: String){
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             var locationWeather = ArrayList<LocationWeather>()
-            for(loc in favLocationsList.value!!) {
+
+            for(loc in favLocation) {
                 var res = repo.getCurrentWeather(loc.latitude, loc.longitude, apiKey, unit)
 
                 if (res.isSuccessful) {
@@ -38,7 +40,6 @@ class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
                 }
 
             }
-
             favLocationWeatherList.postValue(locationWeather)
         }
     }

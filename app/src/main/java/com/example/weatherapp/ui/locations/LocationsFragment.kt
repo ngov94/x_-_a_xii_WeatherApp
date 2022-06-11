@@ -26,6 +26,7 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import java.lang.Exception
 
 
 class LocationsFragment : Fragment() {
@@ -48,6 +49,7 @@ class LocationsFragment : Fragment() {
         val repo = WeatherRepository(intr, dao)
         val locationViewModel = LocationViewModel(repo)
         val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
+        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"
         var unit = "metric"
 
 //        setFragmentResultListener("key_to_location"){key,result ->
@@ -75,13 +77,13 @@ class LocationsFragment : Fragment() {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                // TODO: Get info about the selected place.
+
                 println("Fav Place: ${place.address}, ${place.latLng}")
                 var placeName = place.address
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 locationViewModel.insertFavLocation(FavLocations(placeName, latitude, longitude))
-                locationViewModel.getFavLocationWeatherList(googleApi, unit)
+
                 Toast.makeText(context, "$placeName added to list", Toast.LENGTH_LONG).show()
             }
 
@@ -91,7 +93,9 @@ class LocationsFragment : Fragment() {
         })
 //        <---End of Codes for Google autocomplete Fragment --->
 
-        locationViewModel.getFavLocationWeatherList(googleApi, unit)
+        locationViewModel.favLocationsList.observe(viewLifecycleOwner){
+            locationViewModel.getFavLocationWeatherList(it, weatherApiKey, unit)
+        }
 
         binding.favoritesRecycler.adapter = adapter
         binding.favoritesRecycler.layoutManager = LinearLayoutManager(activity)
@@ -101,7 +105,6 @@ class LocationsFragment : Fragment() {
             locWeatherList.addAll(it)
             adapter.notifyDataSetChanged()
         }
-
 
 
         return root
