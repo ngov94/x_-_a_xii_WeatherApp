@@ -52,7 +52,7 @@ class WeeklyFragment : Fragment() {
         var dateNow = SimpleDateFormat("MMMM d").format(Date())
 
         var localnow = Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        var localWeek = Date.from(localnow.plusDays(8).atStartOfDay(ZoneId.systemDefault()).toInstant())
+        var localWeek = Date.from(localnow.plusDays(7).atStartOfDay(ZoneId.systemDefault()).toInstant())
         var dateWeekfromNow = SimpleDateFormat("MMMM d").format(localWeek)
 
         binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
