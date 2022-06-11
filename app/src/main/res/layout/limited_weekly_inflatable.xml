@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/limited_favorites_inflatable">
+    android:id="@+id/limited_weekly_inflatable">
 
 
     <androidx.cardview.widget.CardView
@@ -32,7 +32,7 @@
                 android:weightSum="1"
                 android:layout_gravity="center">
                 <TextView
-                    android:id="@+id/favorite_item_max"
+                    android:id="@+id/weekly_item_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -40,7 +40,7 @@
                     android:text="75°/"
                     android:layout_weight=".1"/>
                 <TextView
-                    android:id="@+id/favorite_item_min"
+                    android:id="@+id/weekly_item_min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -49,7 +49,7 @@
                     android:layout_weight=".1"
                     />
                 <ImageView
-                    android:id="@+id/favorite_item_current_icon"
+                    android:id="@+id/weekly_item_current_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="18dp"
@@ -58,7 +58,7 @@
                     android:layout_weight=".6"/>
 
                 <ImageView
-                    android:id="@+id/favorite_item_precipitation_icon"
+                    android:id="@+id/weekly_item_precipitation_icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:textSize="18dp"
@@ -66,7 +66,7 @@
                     android:layout_gravity="center"
                     android:layout_weight=".1"/>
                 <TextView
-                    android:id="@+id/favorite_item_precipitation"
+                    android:id="@+id/weekly_item_precipitation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
@@ -75,13 +75,13 @@
                     android:layout_weight=".1"/>
             </LinearLayout>
             <TextView
-                android:id="@+id/favorite_item_location"
+                android:id="@+id/weekly_item_date"
                 android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_bold"
-                android:text="Mexico, Parangaricutirimicuaro"
-                android:textColo="@color/black"/>
+                android:text="Today"
+                android:textColor="@color/black"/>
 
 
 

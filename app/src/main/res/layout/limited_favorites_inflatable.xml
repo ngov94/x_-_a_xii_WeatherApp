@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="min"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="fav_item"/>
+                app:layout_constraintTop_toBottomOf="@id/fav_item_location"/>
 
             <TextView
                 android:id="@+id/fav_item_temp"

@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.example.weatherapp.WeatherViewModel
 import com.example.weatherapp.DataBase.WeatherDatabase
 import com.example.weatherapp.R
 import com.example.weatherapp.RetroApiInterface
 import com.example.weatherapp.WeatherRepository
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
+import com.example.weatherapp.ui.weekly.WeeklyFragment
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -115,6 +118,8 @@ class CurrentLocationFragment : Fragment() {
             //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
             //Each view contained in HourlyView has a corresponding icon, temp, and time
             //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
+
+            setFragmentResult("key_to_weekly", bundleOf("daily" to it.daily))
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
