@@ -1,18 +1,16 @@
 package com.example.weatherapp.ui.currentlocation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.example.weatherapp.WeatherViewModel
+import com.example.weatherapp.DataBase.WeatherDatabase
 import com.example.weatherapp.R
 import com.example.weatherapp.RetroApiInterface
 import com.example.weatherapp.WeatherRepository
-import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
-import com.example.weatherapp.ui.locations.LocationsViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -21,7 +19,6 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.fragment_current_location.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,8 +38,9 @@ class CurrentLocationFragment : Fragment() {
     ): View {
 
         val intr = RetroApiInterface.create()
-        val repo = WeatherRepository(intr)
-        val currentLocationViewModel = CurrentLocationViewModel(repo)
+        val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
+        val repo = WeatherRepository(intr, dao)
+        val currentLocationViewModel = WeatherViewModel(repo)
 
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
