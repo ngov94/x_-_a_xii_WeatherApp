@@ -36,34 +36,62 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="min"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fav_item_location"/>
+
 
             <TextView
-                android:id="@+id/fav_item_temp"
+                android:id="@+id/fav_item_currtemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_regular"
                 android:text="70°"
                 android:textSize="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/fav_item_metric"
+                app:layout_constraintRight_toLeftOf="@id/fav_item_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/fav_item_metric"
+                android:id="@+id/fav_item_maxtemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_regular"
-                android:text="F"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="100°"
+                android:textSize="10sp"
+                android:paddingEnd="4dp"
+                app:layout_constraintTop_toBottomOf="@id/fav_item_currtemp"
+                app:layout_constraintRight_toLeftOf="@id/fav_item_mintemp"
+                />
+            <TextView
+                android:id="@+id/fav_item_mintemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/google_sans_regular"
+                android:text="30°"
+                android:textSize="10sp"
+                app:layout_constraintTop_toBottomOf="@id/fav_item_currtemp"
                 app:layout_constraintRight_toLeftOf="@id/fav_item_icon"
-                app:layout_constraintTop_toTopOf="parent" />
+
+                />
+            <TextView
+                android:id="@+id/fav_item_pop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/google_sans_regular"
+                android:text="20%"
+                android:textSize="10sp"
+                app:layout_constraintTop_toBottomOf="@id/fav_item_mintemp"
+                app:layout_constraintRight_toLeftOf="@id/fav_item_icon"
+                />
+
+<!--            <TextView-->
+<!--                android:id="@+id/fav_item_metric"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/google_sans_regular"-->
+<!--                android:text="F"-->
+<!--                android:textSize="18dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintRight_toLeftOf="@id/fav_item_icon"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <ImageView
                 android:id="@+id/fav_item_icon"

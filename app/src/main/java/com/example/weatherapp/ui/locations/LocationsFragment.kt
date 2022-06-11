@@ -21,19 +21,16 @@ class LocationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val locationsViewModel =
-            ViewModelProvider(this).get(LocationsViewModel::class.java)
 
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         /**TODO : There's a SearchView users can use to add search for locations,but please feel free to remove
         if you've got a better idea**/
-/*
-        val textView: TextView = binding.textLocations
-        locationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
+
+
+
+
         return root
     }
 
