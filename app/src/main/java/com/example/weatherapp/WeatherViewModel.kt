@@ -1,9 +1,13 @@
-package com.example.weatherapp.ui.currentlocation
+package com.example.weatherapp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.APIResponse.AllWeather
+import com.example.weatherapp.DataBase.AllWeatherEntity
+import com.example.weatherapp.DataBase.CityLatLong
+import com.example.weatherapp.DataBase.PlaceName
 import com.example.weatherapp.GeolocationApi.Geolocation
 import com.example.weatherapp.ReverseGeocoding.CurrentCity
 import com.example.weatherapp.WeatherRepository
@@ -12,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CurrentLocationViewModel(val repo: WeatherRepository) : ViewModel() {
+class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
 //    private val _text = MutableLiveData<String>().apply {
 //        value = "This is current location Fragment"
 //    }
@@ -21,6 +25,14 @@ class CurrentLocationViewModel(val repo: WeatherRepository) : ViewModel() {
     var currentWeather = MutableLiveData<AllWeather>()
     var currentLocation = MutableLiveData<Geolocation>()
     var currentCity = MutableLiveData<CurrentCity>()
+
+    val getAllWeather : LiveData<AllWeatherEntity>
+    val getLatLong : LiveData<CityLatLong>
+
+    init {
+        getAllWeather = repo.getAllWeather()
+        getLatLong = repo.getLatLong()
+    }
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
         throwable.printStackTrace()
@@ -57,4 +69,23 @@ class CurrentLocationViewModel(val repo: WeatherRepository) : ViewModel() {
 
         }
     }
+
+    fun insertWeather(weather: AllWeatherEntity) = viewModelScope.launch{
+        repo.insertWeather(weather)
+    }
+
+
+    fun insertLatLong(cityLatLong: CityLatLong) = viewModelScope.launch {
+        repo.insertLatLong(cityLatLong)
+    }
+
+
+    fun getPlaceName() = repo.getPlaceName()
+
+
+
+    fun insertPlaceName(placeName: PlaceName) = viewModelScope.launch {
+        repo.insertPlaceName(placeName)
+    }
+
 }

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
     id 'maven-publish'
 }
 
@@ -67,6 +68,24 @@ dependencies {
 
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    //RXKotlin
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+
+    // To refresh page
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //RoomDB
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
 
 
 
