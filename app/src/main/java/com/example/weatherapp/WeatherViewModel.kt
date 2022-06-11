@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.APIResponse.AllWeather
+import com.example.weatherapp.APIResponse.LocationWeather
 import com.example.weatherapp.DataBase.AllWeatherEntity
 import com.example.weatherapp.DataBase.CityLatLong
 import com.example.weatherapp.DataBase.FavLocations
 import com.example.weatherapp.DataBase.PlaceName
 import com.example.weatherapp.GeolocationApi.Geolocation
 import com.example.weatherapp.ReverseGeocoding.CurrentCity
-import com.example.weatherapp.WeatherRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,15 +30,12 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
     val getAllWeather : LiveData<AllWeatherEntity>
     val getLatLong : LiveData<CityLatLong>
 
-    val getFavLocationsList : LiveData<List<FavLocations>>
-
-    val getFavLocationWeatherList = MutableLiveData<List<FavLocations>>()
 
 
     init {
         getAllWeather = repo.getAllWeather()
         getLatLong = repo.getLatLong()
-        getFavLocationsList = repo.getFavLocationsList()
+
 
     }
 
@@ -96,22 +93,7 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
         repo.insertPlaceName(placeName)
     }
 
-    //For Fav Locations
 
-    fun insertFavLocation(favLocation: FavLocations) = repo.insertFavLocation(favLocation)
-
-    fun getFavLocationWeatherList(favLocations: List<FavLocations>, apiKey: String, unit: String){
-        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-          for(loc in favLocations) {
-              var res = repo.getCurrentWeather(loc.latitude, loc.longitude, apiKey, unit)
-
-              if (res.isSuccessful) {
-                  currentWeather.postValue(res.body())
-              }
-
-          }
-        }
-    }
 
 
 

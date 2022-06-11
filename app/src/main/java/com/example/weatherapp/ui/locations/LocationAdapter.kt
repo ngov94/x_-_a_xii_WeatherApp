@@ -8,12 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.APIResponse.Daily
+import com.example.weatherapp.APIResponse.LocationWeather
 import com.example.weatherapp.R
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class LocationAdapter(private val locationList: List<AllWeather>) : RecyclerView.Adapter<ViewHolder>(){
+class LocationAdapter(private val locationList: List<LocationWeather>) : RecyclerView.Adapter<ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val locationItemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.limited_favorites_inflatable, parent, false)
@@ -24,13 +25,13 @@ class LocationAdapter(private val locationList: List<AllWeather>) : RecyclerView
         val item = locationList[position]
 
 
-        holder.itemCurTextView.text = item.current.temp.roundToInt().toString()+ "°"
-        holder.itemMaxTextView.text = item.daily.first().temp.max.roundToInt().toString()+ "°"
-        holder.itemMinTextView.text = item.daily.first().temp.min.roundToInt().toString()+ "°"
-        holder.itemPrecipTextView.text = (item.daily.first().pop*100).roundToInt().toString()+ "%"
+        holder.itemCurTextView.text = item.weather?.current?.temp?.roundToInt().toString()+ "°"
+        holder.itemMaxTextView.text = item.weather?.daily?.first()?.temp?.max?.roundToInt().toString()+ "°"
+        holder.itemMinTextView.text = item.weather?.daily?.first()?.temp?.min?.roundToInt().toString()+ "°"
+        holder.itemPrecipTextView.text = (item.weather?.daily?.first()?.pop?.times(100))?.roundToInt().toString()+ "%"
+        holder.itemLocationTextView.text = item.placename
 
-
-        var icon = when (item.daily.first().weather.first().icon){
+        var icon = when (item.weather?.daily?.first()?.weather?.first()?.icon){
             "01d" -> R.drawable.w_clear_sky_day
             "01n" -> R.drawable.w_clear_sky_night
             "02d" -> R.drawable.w_few_clouds_day

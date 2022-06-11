@@ -3,10 +3,44 @@ package com.example.weatherapp.ui.locations
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.APIResponse.LocationWeather
+import com.example.weatherapp.DataBase.FavLocations
+import com.example.weatherapp.WeatherRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class LocationViewModel : ViewModel() {
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Location Fragment"
+class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
+
+    val favLocationsList : LiveData<List<FavLocations>>
+    val favLocationWeatherList = MutableLiveData<List<LocationWeather>>()
+
+
+    init {
+        favLocationsList = repo.getFavLocationsList()
     }
-    val text: LiveData<String> = _text
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
+        throwable.printStackTrace()
+    }
+
+    fun insertFavLocation(favLocation: FavLocations) = repo.insertFavLocation(favLocation)
+
+    fun getFavLocationWeatherList(apiKey: String, unit: String){
+        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+            var locationWeather = ArrayList<LocationWeather>()
+            for(loc in favLocationsList.value!!) {
+                var res = repo.getCurrentWeather(loc.latitude, loc.longitude, apiKey, unit)
+
+                if (res.isSuccessful) {
+                    locationWeather.add(LocationWeather(res.body(),loc.placeName))
+                }
+
+            }
+
+            favLocationWeatherList.postValue(locationWeather)
+        }
+    }
+
 }

@@ -62,6 +62,7 @@ class WeeklyFragment : Fragment() {
         binding.futureRecycler.layoutManager = LinearLayoutManager(activity)
 
         setFragmentResultListener("key_to_weekly"){key,result ->
+            weeklyList.clear()
             weeklyList.addAll(result.get("daily") as List<Daily>)
             adapter.notifyDataSetChanged()
         }

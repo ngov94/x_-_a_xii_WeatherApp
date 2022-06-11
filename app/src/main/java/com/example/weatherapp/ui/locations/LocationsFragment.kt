@@ -6,8 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapp.APIResponse.Daily
+import com.example.weatherapp.APIResponse.LocationWeather
+import com.example.weatherapp.DataBase.FavLocations
+import com.example.weatherapp.DataBase.WeatherDatabase
 import com.example.weatherapp.R
+import com.example.weatherapp.RetroApiInterface
+import com.example.weatherapp.WeatherRepository
+import com.example.weatherapp.WeatherViewModel
 import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -24,6 +33,8 @@ class LocationsFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var placesClient: PlacesClient
+    val locWeatherList = ArrayList<LocationWeather>()
+    val adapter = LocationAdapter(locWeatherList)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,20 +42,30 @@ class LocationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        val intr = RetroApiInterface.create()
+        val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
+        val repo = WeatherRepository(intr, dao)
+        val locationViewModel = LocationViewModel(repo)
+        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
+        var unit = "metric"
+
+//        setFragmentResultListener("key_to_location"){key,result ->
+//            //googleApi = result.getString("apikey").toString()
+//            unit = result.getString("unit").toString()
+//
+//        }
+
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
 
-
-        /**TODO : There's a SearchView users can use to add search for locations,but please feel free to remove
-        if you've got a better idea**/
+        //Search to add location from list
 
         //<----Codes for Google autocomplete Fragment. More here: https://developers.google.cn/maps/documentation/places/android-sdk/autocomplete--->
         Places.initialize(context, googleApi)
         placesClient = Places.createClient(context)
         // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+        val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment_fav_location) as AutocompleteSupportFragment
 
         autocompleteFragment.setTypeFilter(TypeFilter.CITIES)
         // Specify the types of place data to return.
@@ -54,12 +75,11 @@ class LocationsFragment : Fragment() {
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
-                println("Place: ${place.address}, ${place.latLng}")
-                //binding.tvCityName.text = place.address TODO : Please insert this text into the searchbar // searchViewID.setQuery(searchToken, false);
+                println("Fav Place: ${place.address}, ${place.latLng}")
+                var placeName = place.address
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
-                // TODO: change this
-                //currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
+                locationViewModel.insertFavLocation(FavLocations(placeName, latitude, longitude))
             }
 
             override fun onError(status: Status) {
@@ -68,6 +88,18 @@ class LocationsFragment : Fragment() {
         })
 //        <---End of Codes for Google autocomplete Fragment --->
 
+
+        locationViewModel.getFavLocationWeatherList(googleApi, unit)
+
+
+        binding.favoritesRecycler.adapter = adapter
+        binding.favoritesRecycler.layoutManager = LinearLayoutManager(activity)
+
+        locationViewModel.favLocationWeatherList.observe(viewLifecycleOwner){
+            locWeatherList.clear()
+            locWeatherList.addAll(it)
+            adapter.notifyDataSetChanged()
+        }
 
 
 

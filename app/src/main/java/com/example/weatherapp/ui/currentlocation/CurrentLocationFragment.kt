@@ -55,9 +55,10 @@ class CurrentLocationFragment : Fragment() {
         val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
         val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
         val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
-
-
         var units = "metric"  //imperial
+
+
+
         //TODO : update current_degree_metric along with calculations
         //TODO : several gradients depending on weather
         currentLocationViewModel.getGeoloaction(googleApi)
@@ -119,6 +120,8 @@ class CurrentLocationFragment : Fragment() {
             //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
 
             setFragmentResult("key_to_weekly", bundleOf("daily" to it.daily))
+            //Sending google api and unit to location fragment
+            setFragmentResult("key_to_location", bundleOf("apikey" to googleApi, "unit" to units))
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
@@ -134,6 +137,7 @@ class CurrentLocationFragment : Fragment() {
 
         //changes metric when view is clicked
         //binding.metric_change_button.setOnClickListener {} TODO : Please set an on-click listener to change the metric (Fahrenheit - Celcius)
+
 
         return root
     }
