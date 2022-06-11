@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
@@ -80,6 +81,8 @@ class LocationsFragment : Fragment() {
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 locationViewModel.insertFavLocation(FavLocations(placeName, latitude, longitude))
+                locationViewModel.getFavLocationWeatherList(googleApi, unit)
+                Toast.makeText(context, "$placeName added to list", Toast.LENGTH_LONG).show()
             }
 
             override fun onError(status: Status) {
@@ -88,9 +91,7 @@ class LocationsFragment : Fragment() {
         })
 //        <---End of Codes for Google autocomplete Fragment --->
 
-
         locationViewModel.getFavLocationWeatherList(googleApi, unit)
-
 
         binding.favoritesRecycler.adapter = adapter
         binding.favoritesRecycler.layoutManager = LinearLayoutManager(activity)
