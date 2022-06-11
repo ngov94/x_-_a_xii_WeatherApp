@@ -26,5 +26,12 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPlaceName(placeName: PlaceName)
 
+    //For Favourite Locations Page
+    @Query("SELECT * from favlocations")
+    fun getFavLocationsList():LiveData<List<FavLocations>>
+
+    @Insert
+    fun insertFavLocation(favLocation: FavLocations)
+
 
 }

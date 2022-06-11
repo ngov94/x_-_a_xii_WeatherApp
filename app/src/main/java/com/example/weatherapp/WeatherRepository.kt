@@ -1,10 +1,10 @@
 package com.example.weatherapp
 
 import androidx.lifecycle.LiveData
-import com.example.weatherapp.DataBase.AllWeatherEntity
-import com.example.weatherapp.DataBase.CityLatLong
-import com.example.weatherapp.DataBase.PlaceName
-import com.example.weatherapp.DataBase.WeatherDao
+import androidx.lifecycle.MutableLiveData
+import com.example.weatherapp.APIResponse.AllWeather
+import com.example.weatherapp.DataBase.*
+import retrofit2.Response
 
 
 class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDao) {
@@ -43,4 +43,23 @@ class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDa
     fun insertPlaceName(placeName: PlaceName) {
         return dao.insertPlaceName(placeName)
     }
+
+    // For Fav Locations
+    fun getFavLocationsList():LiveData<List<FavLocations>>{
+        return dao.getFavLocationsList()
+    }
+
+    fun insertFavLocation(favLocation: FavLocations){
+        return dao.insertFavLocation(favLocation)
+    }
+
+//    suspend fun getFavLocationWeatherList(favLocations: List<FavLocations>, apiKey: String, unit: String): LiveData<List<Response<AllWeather>>>{
+//
+//        var favLocationWeatherArray = ArrayList<Response<AllWeather>>()
+//        for(loc in favLocations){
+//            favLocationWeatherArray.add(inter.getCurrentWeather(loc.latitude, loc.longitude, apiKey, unit))
+//        }
+//
+//        return MutableLiveData(favLocationWeatherArray)
+//    }
 }
