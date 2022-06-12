@@ -1,8 +1,12 @@
 package com.example.weatherapp.ui.locations
 
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +29,11 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.android.synthetic.main.limited_favorites_inflatable.view.*
 import java.lang.Exception
 
@@ -35,10 +42,10 @@ class LocationsFragment : Fragment() {
 
     private var _binding: ActivityLocationsFragmentBinding? = null
     private val binding get() = _binding!!
-
     lateinit var placesClient: PlacesClient
     val locWeatherList = ArrayList<LocationWeather>()
     val adapter = LocationAdapter(locWeatherList)
+    lateinit var locationViewModel: LocationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,50 +56,26 @@ class LocationsFragment : Fragment() {
         val intr = RetroApiInterface.create()
         val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
         val repo = WeatherRepository(intr, dao)
-        val locationViewModel = LocationViewModel(repo)
+        locationViewModel = LocationViewModel(repo)
         val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
         val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"
         var unit = "metric"
 
-//        setFragmentResultListener("key_to_location"){key,result ->
-//            //googleApi = result.getString("apikey").toString()
-//            unit = result.getString("unit").toString()
-//
-//        }
 
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.addButton.setOnClickListener {
+            Places.initialize(context!!, googleApi)
+            placesClient = Places.createClient(context!!)
+            val AUTOCOMPLETE_REQUEST_CODE = 1
 
-        //Search to add location from list
-
-        //<----Codes for Google autocomplete Fragment. More here: https://developers.google.cn/maps/documentation/places/android-sdk/autocomplete--->
-        Places.initialize(context, googleApi)
-        placesClient = Places.createClient(context)
-        // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment_fav_location) as AutocompleteSupportFragment
-
-        autocompleteFragment.setTypeFilter(TypeFilter.CITIES)
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.LAT_LNG, Place.Field.ADDRESS))
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-
-                println("Fav Place: ${place.address}, ${place.latLng}")
-                var placeName = place.address
-                var latitude = place.latLng?.latitude.toString()
-                var longitude = place.latLng?.longitude.toString()
-                locationViewModel.insertFavLocation(FavLocations(placeName = placeName, latitude =  latitude, longitude = longitude))
-
-                Toast.makeText(context, "$placeName added to list", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onError(status: Status) {
-                println("An error occurred: $status")
-            }
-        })
+            val fields = listOf(Place.Field.LAT_LNG, Place.Field.ADDRESS)
+            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+                .setTypeFilter(TypeFilter.CITIES)
+                .build(this.context!!)
+            startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+        }
 //        <---End of Codes for Google autocomplete Fragment --->
 
         //Recycler view of location list
@@ -137,6 +120,36 @@ class LocationsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(data)
+                        var placeName = place.address?.toString()
+                        var latitude = place.latLng?.latitude.toString()
+                        var longitude = place.latLng?.longitude.toString()
+                        locationViewModel.insertFavLocation(FavLocations(placeName = placeName!!, latitude =  latitude, longitude = longitude))
+
+                        Log.i(TAG, "Place: ${place.name}, ${place.id}")
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    // TODO: Handle the error.
+                    data?.let {
+                        val status = Autocomplete.getStatusFromIntent(data)
+                        Log.i(TAG, status.statusMessage ?: "")
+                    }
+                }
+                Activity.RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
 
