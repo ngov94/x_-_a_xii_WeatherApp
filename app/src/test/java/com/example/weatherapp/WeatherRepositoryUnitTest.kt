@@ -16,12 +16,8 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response.success
-import android.content.Context
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import com.example.weatherapp.DataBase.*
 import junit.framework.TestCase
-import org.junit.After
 
 @RunWith(JUnit4::class)
 class WeatherRepositoryUnitTest : TestCase() {
@@ -36,9 +32,6 @@ class WeatherRepositoryUnitTest : TestCase() {
 
     @Mock
     lateinit var fakeAllWeather : AllWeather
-
-    @Mock
-    lateinit var fakeAllWeatherEntity: AllWeatherEntity
 
     @Mock
     lateinit var fakeLiveAllWeatherEntity : LiveData<AllWeatherEntity>
@@ -118,9 +111,9 @@ class WeatherRepositoryUnitTest : TestCase() {
 
         repo.insertWeather(fakeWeather)
 
-        val weatherEntities = repo.getAllWeather()
+        val result = repo.getAllWeather()
         //Testing insert into Mocked db how do I test
-        //assertEquals(weatherEntities,fakeWeather)
+       // assertEquals(fakeWeather, result.value)
     }
 
     @Test
@@ -168,6 +161,6 @@ class WeatherRepositoryUnitTest : TestCase() {
 
     @Test
     fun insertFavLocation(){
-        
+        //
     }
 }
