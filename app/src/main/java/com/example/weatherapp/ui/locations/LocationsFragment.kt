@@ -1,6 +1,7 @@
 package com.example.weatherapp.ui.locations
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,7 +84,7 @@ class LocationsFragment : Fragment() {
                 var placeName = place.address
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
-                locationViewModel.insertFavLocation(FavLocations(placeName, latitude, longitude))
+                locationViewModel.insertFavLocation(FavLocations(placeName = placeName, latitude =  latitude, longitude = longitude))
 
                 Toast.makeText(context, "$placeName added to list", Toast.LENGTH_LONG).show()
             }
@@ -116,9 +117,18 @@ class LocationsFragment : Fragment() {
                 var locLat = itemView.fav_item_location_lat.text.toString()
                 var locLong = itemView.fav_item_location_long.text.toString()
 
+                var deleteLocation = FavLocations(locId, locName, locLat, locLong)
 
+                AlertDialog.Builder(context)
+                    .setTitle("Do you want to remove $locName?")
+                    .setNegativeButton("No") { _, _ ->
+                        Toast.makeText(context, "$locName not deleted", Toast.LENGTH_LONG).show()
+                    }
+                    .setPositiveButton("Yes") { _, _ ->
+                        locationViewModel.deleteFavLocation(deleteLocation)
+                        Toast.makeText(context, "$locName is deleted", Toast.LENGTH_LONG).show()
+                    }.show()
             }
-
         })
 
         return root

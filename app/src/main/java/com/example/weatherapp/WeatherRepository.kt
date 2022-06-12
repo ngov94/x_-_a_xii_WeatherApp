@@ -53,13 +53,7 @@ class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDa
         return dao.insertFavLocation(favLocation)
     }
 
-//    suspend fun getFavLocationWeatherList(favLocations: List<FavLocations>, apiKey: String, unit: String): LiveData<List<Response<AllWeather>>>{
-//
-//        var favLocationWeatherArray = ArrayList<Response<AllWeather>>()
-//        for(loc in favLocations){
-//            favLocationWeatherArray.add(inter.getCurrentWeather(loc.latitude, loc.longitude, apiKey, unit))
-//        }
-//
-//        return MutableLiveData(favLocationWeatherArray)
-//    }
+    fun deleteFavLocation(favLocation: FavLocations){
+        return dao.deleteFavLocation(favLocation)
+    }
 }

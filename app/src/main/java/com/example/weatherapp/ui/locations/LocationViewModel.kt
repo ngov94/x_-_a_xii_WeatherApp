@@ -44,4 +44,6 @@ class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
         }
     }
 
+    fun deleteFavLocation(favLocation: FavLocations) = repo.deleteFavLocation(favLocation)
+
 }
