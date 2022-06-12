@@ -23,8 +23,7 @@ class RetroApiInterfaceUnitTest {
     lateinit var mockServer: MockWebServer
     lateinit var gson : Gson
 
-    @Mock
-    lateinit var fakeAllWeather: AllWeather
+
 
     @Before
     fun setup(){
@@ -32,34 +31,29 @@ class RetroApiInterfaceUnitTest {
         mockServer = MockWebServer()
         gson = Gson()
         inter = Retrofit.Builder()
-            .baseUrl(mockServer.url("/"))
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl(mockServer.url(""))
+            .addConverterFactory(GsonConverterFactory.create())
             .build().create(RetroApiInterface::class.java)
     }
-
-    @After
-    fun destroy() {
-        mockServer.shutdown()
-    }
-
+    //Gradle Is hanging with these tests
     @Test
     fun getCurrentWeatherTest(){
         runBlocking {
-            var mockRes = MockResponse().setBody("[{'id':1}]")
+            var mockRes = MockResponse().setBody("Hello")
 
             mockServer.enqueue(mockRes)
 
             val res = inter.getCurrentWeather("0","0","0","0")
             val req = mockServer.takeRequest()
 
-            assertEquals(mockRes, req.path)
+            assertEquals("onecal?lat=0&lon=0&appid=0&units=0", req.path)
         }
     }
 
     @Test
     fun getGeolocationTest(){
         runBlocking {
-            var mockRes = MockResponse().setBody("[{'id':1}]")
+            var mockRes = MockResponse().setBody("Hello")
 
             mockServer.enqueue(mockRes)
 
@@ -67,22 +61,29 @@ class RetroApiInterfaceUnitTest {
             val req = mockServer.takeRequest()
 
             assertEquals(true ,res.body() != null)
-            assertEquals("onecall?key=0",req.path)
+            assertEquals("https://www.googleapis.com/geolocation/v1/geolocate?key=0",
+                req.path)
         }
     }
 
     @Test
     fun getCurrentCityTest(){
         runBlocking {
-            var mockRes = MockResponse()
+            var mockRes = MockResponse().setBody("Hello")
 
-            mockServer.enqueue(mockRes.setBody("[]"))
+            mockServer.enqueue(mockRes)
 
             val res = inter.getCurrentCity("0","0")
             val req = mockServer.takeRequest()
 
-            assertEquals(mockRes, req.path)
+            assertEquals(true, res.body() != null)
+            assertEquals("https://api.opencagedata.com/geocode/v1/json?q=0&key=0",
+                req.path)
         }
     }
 
+    @After
+    fun destroy() {
+        mockServer.shutdown()
+    }
 }
