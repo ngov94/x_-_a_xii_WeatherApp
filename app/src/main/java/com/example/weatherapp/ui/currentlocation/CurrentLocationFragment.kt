@@ -23,6 +23,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.gson.GsonBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class CurrentLocationFragment : Fragment() {
 
@@ -110,42 +111,43 @@ class CurrentLocationFragment : Fragment() {
             binding.currentDate.text = SimpleDateFormat("MMM dd").format(Date()).toString()
             binding.currentTime.text = SimpleDateFormat("h:mm a").format(Date()).toString()
 
-            binding.currentTemperature.text = it.current.temp.toString() + "°"
+            binding.currentTemperature.text = it.current.temp.roundToInt().toString() + "°"
             binding.currentConditions.text = it.current.weather[0].main//.capitalize()
+            binding.currentIcon.setImageDrawable(context?.getDrawable(setIcon(it.current.weather[0].icon)))
 
 
             binding.currentHumidity.text = it.current.humidity.toString() + "%"
-            binding.currentDewPoint.text = it.current.dewPoint.toString() + "°"
+            binding.currentDewPoint.text = it.current.dewPoint.roundToInt().toString() + "°"
             binding.currentPressure.text = it.current.pressure.toString() + " hPa"
             binding.currentUvIndex.text = it.current.uvi.toString()
             binding.currentVisibility.text = it.current.visibility.toString()+ "m"
-            binding.currentMaxTemp.text = it.daily[0].temp.max.toString() + "°" //detail
-            binding.currentMinTemp.text = it.daily[0].temp.min.toString() + "°" //detail
-            binding.currentFeelsLike.text = it.current.feelsLike.toString() + "°" //detail
+            binding.currentMaxTemp.text = it.daily[0].temp.max.roundToInt().toString() + "°" //detail
+            binding.currentMinTemp.text = it.daily[0].temp.min.roundToInt().toString() + "°" //detail
+            binding.currentFeelsLike.text = it.current.feelsLike.roundToInt().toString() + "°" //detail
 
 
             //There are currently 5 hourly update textview // Please let me know if we need less or more
             //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
             //Each view contained in HourlyView has a corresponding icon, temp, and time
-            binding.hourlyIconOne.setImageDrawable(context?.getDrawable(setIcon(it.hourly[0].weather[0].icon)))
-            binding.tempOne.text = it.hourly[0].temp.toString()
-            binding.timeOne.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[0].dt.toLong()*1000))
+            binding.hourlyIconOne.setImageDrawable(context?.getDrawable(setIcon(it.hourly[1].weather[0].icon)))
+            binding.tempOne.text = it.hourly[1].temp.roundToInt().toString()
+            binding.timeOne.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[1].dt.toLong()*1000))
 
-            binding.hourlyIconTwo.setImageDrawable(context?.getDrawable(setIcon(it.hourly[1].weather[0].icon)))
-            binding.tempTwo.text = it.hourly[1].temp.toString()
-            binding.timeTwo.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[1].dt.toLong()*1000))
+            binding.hourlyIconTwo.setImageDrawable(context?.getDrawable(setIcon(it.hourly[2].weather[0].icon)))
+            binding.tempTwo.text = it.hourly[2].temp.roundToInt().toString()
+            binding.timeTwo.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[2].dt.toLong()*1000))
 
-            binding.hourlyIconThree.setImageDrawable(context?.getDrawable(setIcon(it.hourly[2].weather[0].icon)))
-            binding.tempThree.text = it.hourly[2].temp.toString()
-            binding.timeThree.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[2].dt.toLong()*1000))
+            binding.hourlyIconThree.setImageDrawable(context?.getDrawable(setIcon(it.hourly[3].weather[0].icon)))
+            binding.tempThree.text = it.hourly[3].temp.roundToInt().toString()
+            binding.timeThree.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[3].dt.toLong()*1000))
 
-            binding.hourlyIconFour.setImageDrawable(context?.getDrawable(setIcon(it.hourly[3].weather[0].icon)))
-            binding.tempFour.text = it.hourly[3].temp.toString()
-            binding.timeFour.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[3].dt.toLong()*1000))
+            binding.hourlyIconFour.setImageDrawable(context?.getDrawable(setIcon(it.hourly[4].weather[0].icon)))
+            binding.tempFour.text = it.hourly[4].temp.roundToInt().toString()
+            binding.timeFour.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[4].dt.toLong()*1000))
 
-            binding.hourlyIconFive.setImageDrawable(context?.getDrawable(setIcon(it.hourly[4].weather[0].icon)))
-            binding.tempFive.text = it.hourly[4].temp.toString()
-            binding.timeFive.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[4].dt.toLong()*1000))
+            binding.hourlyIconFive.setImageDrawable(context?.getDrawable(setIcon(it.hourly[5].weather[0].icon)))
+            binding.tempFive.text = it.hourly[5].temp.roundToInt().toString()
+            binding.timeFive.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[5].dt.toLong()*1000))
 
 
             //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
