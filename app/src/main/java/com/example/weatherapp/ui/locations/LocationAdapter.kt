@@ -15,10 +15,21 @@ import java.util.*
 import kotlin.math.roundToInt
 
 class LocationAdapter(private val locationList: List<LocationWeather>) : RecyclerView.Adapter<ViewHolder>(){
+
+    private lateinit var itemLongListener: OnItemLongClickListener
+
+    interface OnItemLongClickListener{
+        fun onItemLongClick (itemView: View)
+    }
+
+    fun setOnItemLongClickListener(listener: OnItemLongClickListener){
+        itemLongListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val locationItemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.limited_favorites_inflatable, parent, false)
-        return ViewHolder(locationItemView)
+        return ViewHolder(locationItemView, itemLongListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -29,7 +40,13 @@ class LocationAdapter(private val locationList: List<LocationWeather>) : Recycle
         holder.itemMaxTextView.text = item.weather?.daily?.first()?.temp?.max?.roundToInt().toString()+ "°"
         holder.itemMinTextView.text = item.weather?.daily?.first()?.temp?.min?.roundToInt().toString()+ "°"
         holder.itemPrecipTextView.text = (item.weather?.daily?.first()?.pop?.times(100))?.roundToInt().toString()+ "%"
-        holder.itemLocationTextView.text = item.placename
+        holder.itemLocationTextView.text = item.favLocations.placeName
+
+        //Will not be visible, passing for deletion
+        holder.itemLocationLatTextView.text = item.favLocations.latitude
+        holder.itemLocationLongTextView.text = item.favLocations.longitude
+        holder.itemLocationIdTextView.text = item.favLocations.id.toString()
+
 
         var icon = when (item.weather?.daily?.first()?.weather?.first()?.icon){
             "01d" -> R.drawable.w_clear_sky_day
@@ -65,7 +82,7 @@ class LocationAdapter(private val locationList: List<LocationWeather>) : Recycle
 
 }
 
-class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ViewHolder(view: View, longListener: LocationAdapter.OnItemLongClickListener) : RecyclerView.ViewHolder(view) {
 
     var itemCurTextView: TextView = view.findViewById(R.id.fav_item_currtemp)
     var itemMaxTextView: TextView = view.findViewById(R.id.fav_item_maxtemp)
@@ -73,5 +90,14 @@ class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var itemIconImageView: ImageView = view.findViewById(R.id.fav_item_icon)
     var itemPrecipTextView: TextView = view.findViewById(R.id.fav_item_pop)
     var itemLocationTextView: TextView = view.findViewById(R.id.fav_item_location)
+    var itemLocationLatTextView: TextView = view.findViewById(R.id.fav_item_location_lat)
+    var itemLocationLongTextView: TextView = view.findViewById(R.id.fav_item_location_long)
+    var itemLocationIdTextView: TextView = view.findViewById(R.id.fav_item_location_id)
 
+    init{
+        view.setOnLongClickListener {
+            longListener.onItemLongClick((itemView))
+            return@setOnLongClickListener true
+        }
+    }
 }

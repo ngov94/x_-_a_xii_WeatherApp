@@ -1,9 +1,10 @@
 package com.example.weatherapp.APIResponse
 
 
+import com.example.weatherapp.DataBase.FavLocations
 import com.google.gson.annotations.SerializedName
 
 data class LocationWeather(
     val weather: AllWeather?,
-    val placename: String
+    val favLocations: FavLocations
 )

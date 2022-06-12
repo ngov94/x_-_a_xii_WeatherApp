@@ -36,7 +36,7 @@ class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
                 var res = repo.getCurrentWeather(loc.latitude, loc.longitude, apiKey, unit)
 
                 if (res.isSuccessful) {
-                    locationWeather.add(LocationWeather(res.body(),loc.placeName))
+                    locationWeather.add(LocationWeather(res.body(),loc))
                 }
 
             }

@@ -26,6 +26,7 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import kotlinx.android.synthetic.main.limited_favorites_inflatable.view.*
 import java.lang.Exception
 
 
@@ -93,6 +94,7 @@ class LocationsFragment : Fragment() {
         })
 //        <---End of Codes for Google autocomplete Fragment --->
 
+        //Recycler view of location list
         locationViewModel.favLocationsList.observe(viewLifecycleOwner){
             locationViewModel.getFavLocationWeatherList(it, weatherApiKey, unit)
         }
@@ -106,6 +108,18 @@ class LocationsFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
+        //Delete Fav Location
+        adapter.setOnItemLongClickListener(object : LocationAdapter.OnItemLongClickListener{
+            override fun onItemLongClick(itemView: View) {
+                var locId = itemView.fav_item_location_id.text.toString().toInt()
+                var locName = itemView.fav_item_location.text.toString()
+                var locLat = itemView.fav_item_location_lat.text.toString()
+                var locLong = itemView.fav_item_location_long.text.toString()
+
+
+            }
+
+        })
 
         return root
     }
