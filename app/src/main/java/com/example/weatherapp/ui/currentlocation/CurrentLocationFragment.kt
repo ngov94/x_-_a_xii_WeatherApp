@@ -61,6 +61,7 @@ class CurrentLocationFragment : Fragment() {
 
         //TODO : update current_degree_metric along with calculations
         //TODO : several gradients depending on weather
+        //Geolocation is just lat and long.
         currentLocationViewModel.getGeoloaction(googleApi)
 
         currentLocationViewModel.currentLocation.observe(viewLifecycleOwner){ it ->
