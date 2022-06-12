@@ -148,7 +148,7 @@
                  <TextView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="ALERT LOCATION"
+                     android:text="ALERT Date and Time"
                      android:fontFamily="@font/google_sans_bold"
                      android:textSize="18dp"/>
                  <TextView
@@ -156,13 +156,19 @@
                      android:layout_height="wrap_content"
                      android:text="ALERT"
                      android:fontFamily="@font/google_sans_bold"
-                     android:textSize="72dp"/>
+                     android:textSize="40sp"/>
                  <TextView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:text="ALERT DESCRIPTION"
                      android:fontFamily="@font/google_sans_bold"
-                     android:textSize="18dp"/>
+                     android:textSize="13sp"/>
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="(ALERT Sender)"
+                     android:fontFamily="@font/google_sans_bold"
+                     android:textSize="12sp"/>
              </LinearLayout>
              <HorizontalScrollView
                  android:id="@+id/hourly_forecast_section"
@@ -240,10 +246,10 @@
                                  android:id="@+id/temp_two"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
+                                 android:fontFamily="@font/google_sans_bold"
                                  android:text="80"
                                  android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
+                                 app:layout_constraintLeft_toLeftOf="parent" />
                              <TextView
                                  android:id="@+id/metric_two"
                                  android:layout_width="wrap_content"
