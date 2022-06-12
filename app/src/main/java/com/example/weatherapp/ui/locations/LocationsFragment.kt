@@ -1,6 +1,7 @@
 package com.example.weatherapp.ui.locations
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import kotlinx.android.synthetic.main.limited_favorites_inflatable.view.*
 import java.lang.Exception
 
 
@@ -82,7 +84,7 @@ class LocationsFragment : Fragment() {
                 var placeName = place.address
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
-                locationViewModel.insertFavLocation(FavLocations(placeName, latitude, longitude))
+                locationViewModel.insertFavLocation(FavLocations(placeName = placeName, latitude =  latitude, longitude = longitude))
 
                 Toast.makeText(context, "$placeName added to list", Toast.LENGTH_LONG).show()
             }
@@ -93,6 +95,7 @@ class LocationsFragment : Fragment() {
         })
 //        <---End of Codes for Google autocomplete Fragment --->
 
+        //Recycler view of location list
         locationViewModel.favLocationsList.observe(viewLifecycleOwner){
             locationViewModel.getFavLocationWeatherList(it, weatherApiKey, unit)
         }
@@ -106,6 +109,27 @@ class LocationsFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
+        //Delete Fav Location
+        adapter.setOnItemLongClickListener(object : LocationAdapter.OnItemLongClickListener{
+            override fun onItemLongClick(itemView: View) {
+                var locId = itemView.fav_item_location_id.text.toString().toInt()
+                var locName = itemView.fav_item_location.text.toString()
+                var locLat = itemView.fav_item_location_lat.text.toString()
+                var locLong = itemView.fav_item_location_long.text.toString()
+
+                var deleteLocation = FavLocations(locId, locName, locLat, locLong)
+
+                AlertDialog.Builder(context)
+                    .setTitle("Do you want to remove $locName?")
+                    .setNegativeButton("No") { _, _ ->
+                        Toast.makeText(context, "$locName not deleted", Toast.LENGTH_LONG).show()
+                    }
+                    .setPositiveButton("Yes") { _, _ ->
+                        locationViewModel.deleteFavLocation(deleteLocation)
+                        Toast.makeText(context, "$locName is deleted", Toast.LENGTH_LONG).show()
+                    }.show()
+            }
+        })
 
         return root
     }

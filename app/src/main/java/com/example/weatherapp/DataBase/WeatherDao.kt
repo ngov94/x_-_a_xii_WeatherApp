@@ -1,10 +1,7 @@
 package com.example.weatherapp.DataBase
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface WeatherDao {
@@ -32,6 +29,9 @@ interface WeatherDao {
 
     @Insert
     fun insertFavLocation(favLocation: FavLocations)
+
+    @Delete
+    fun deleteFavLocation(favLocation: FavLocations)
 
 
 }
