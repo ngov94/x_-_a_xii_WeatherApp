@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.locations.LocationsFragment">
 
     <!--            Added this fragment for Google autocomplete         -->
@@ -24,7 +25,6 @@
         android:layout_height="80dp"
         android:text="⭐"
         android:fontFamily="@font/google_sans_bold"
-        android:textAlignment="center"
         android:textSize="36dp"
         android:padding="10dp"
         android:src="@drawable/favorite___copy"
