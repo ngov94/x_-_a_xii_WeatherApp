@@ -4,6 +4,7 @@ package com.example.weatherapp.APIResponse
 import com.google.gson.annotations.SerializedName
 
 data class AllWeather(
+    val alerts: List<Alert>,
     val current: Current,
     val daily: List<Daily>,
     val hourly: List<Hourly>,
