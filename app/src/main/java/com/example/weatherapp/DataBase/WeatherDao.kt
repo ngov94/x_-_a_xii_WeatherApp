@@ -24,7 +24,7 @@ interface WeatherDao {
     fun insertPlaceName(placeName: PlaceName)
 
     //For Favourite Locations Page
-    @Query("SELECT * from favlocations")
+    @Query("SELECT * from favlocations ORDER BY id DESC")
     fun getFavLocationsList():LiveData<List<FavLocations>>
 
     @Insert
