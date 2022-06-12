@@ -1,12 +1,14 @@
 package com.example.weatherapp
 
-//Todo:
-// Hide Api keys
-//Add splash screen
-//unit conversion
-//rxkotlin
-//crashlytics + Timber logging
-//testing
-//Moving from fragment to fragment should not refresh it
-//Theming - Day and Night
-//Loaders
+//ToDo:
+//[] Hide Api keys (Suneel)
+//[x] Add splash screen (Suneel)
+//[] unit conversion (Jamelia)
+//[] rxkotlin (Suneel)
+//[] crashlytics + Timber logging (Devon)
+//[] testing/Mock (Kurt)
+//[] Moving from fragment to fragment should not refresh it (Neena)
+//[] Theming - Day and Night (Devon)
+//[] Loaders (Neena)
+//[] Delete Map Fragment (Neena)
+//[] Update weather icons (Devon)

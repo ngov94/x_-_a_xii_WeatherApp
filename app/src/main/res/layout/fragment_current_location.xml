@@ -37,6 +37,7 @@
          <androidx.constraintlayout.widget.ConstraintLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent">
+
              <LinearLayout
                  android:id="@+id/current_weather_section"
                  android:layout_width="match_parent"
@@ -398,6 +399,7 @@
                  <TextView
                      android:layout_margin="10dp"
                      android:layout_width="wrap_content"
+                     android:textSize="18dp"
                      android:layout_height="wrap_content"
                      android:layout_marginBottom="24dp"
                      android:fontFamily="@font/google_sans_bold"
@@ -414,86 +416,102 @@
                      <TextView
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
+                         android:textSize="18dp"
                          android:layout_height="wrap_content"
                          android:text="Humidity"/>
                      <TextView
                          android:id="@+id/current_humidity"
                          android:layout_width="0dp"
+                         android:textSize="18dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="%57"/>
                      <TextView
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
+                         android:textSize="18dp"
                          android:layout_height="wrap_content"
                          android:text="Dew Point"/>
                      <TextView
                          android:id="@+id/current_dew_point"
                          android:layout_width="0dp"
+                         android:textSize="18dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="59°F"/>
                      <TextView
+                         android:textSize="18dp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="Pressure"/>
                      <TextView
+                         android:textSize="18dp"
                          android:id="@+id/current_pressure"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="30inHg"/>
                      <TextView
+                         android:textSize="18dp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="UV Index"/>
                      <TextView
+                         android:textSize="18dp"
                          android:id="@+id/current_uv_index"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="Low, 0"/>
                      <TextView
+                         android:textSize="18dp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="Visibility"/>
                      <TextView
+                         android:textSize="18dp"
                          android:id="@+id/current_visibility"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="9mi"/>
                      <TextView
+                         android:textSize="18dp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="Max Temp"/>
                      <TextView
+                         android:textSize="18dp"
                          android:id="@+id/current_max_temp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="81°"/>
                      <TextView
+                         android:textSize="18dp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="Min Temp"/>
                      <TextView
+                         android:textSize="18dp"
                          android:id="@+id/current_min_temp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="55°"/>
                      <TextView
+                         android:textSize="18dp"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="Feels Like"/>
                      <TextView
+                         android:textSize="18dp"
                          android:id="@+id/current_feels_like"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
