@@ -2,6 +2,8 @@ package com.example.weatherapp
 
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     val fm: FragmentManager = supportFragmentManager
     var active: Fragment = fragmentCurrentLocation
 
-
+    var unit ="imperial"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +75,29 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.degreeUnit) {
+            if (unit.equals("imperial")){
+                unit = "metric"
+                item.setIcon(R.drawable.unit_metric)
+                item.setTitle("Metric Units")
+
+            }else{
+                unit = "imperial"
+                item.setIcon(R.drawable.unit_imperial)
+                item.setTitle("Imperial Units")
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 }
 
 
