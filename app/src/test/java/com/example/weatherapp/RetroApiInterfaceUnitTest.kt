@@ -45,9 +45,9 @@ class RetroApiInterfaceUnitTest {
     @Test
     fun getCurrentWeatherTest(){
         runBlocking {
-            var mockRes = MockResponse()
+            var mockRes = MockResponse().setBody("[{'id':1}]")
 
-            mockServer.enqueue(mockRes.setBody("[]"))
+            mockServer.enqueue(mockRes)
 
             val res = inter.getCurrentWeather("0","0","0","0")
             val req = mockServer.takeRequest()
@@ -63,10 +63,11 @@ class RetroApiInterfaceUnitTest {
 
             mockServer.enqueue(mockRes)
 
-            val res = inter.getGeoloaction("0").body()
+            val res = inter.getGeoloaction("0")
             val req = mockServer.takeRequest()
 
-            assertEquals(true ,res != null)
+            assertEquals(true ,res.body() != null)
+            assertEquals("onecall?key=0",req.path)
         }
     }
 
