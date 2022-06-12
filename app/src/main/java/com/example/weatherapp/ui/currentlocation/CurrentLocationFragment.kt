@@ -108,16 +108,21 @@ class CurrentLocationFragment : Fragment() {
             //inserting date in shortened format
 
             binding.currentDate.text = SimpleDateFormat("MMM dd").format(Date()).toString()
+            binding.currentTime.text = SimpleDateFormat("h:mm a").format(Date()).toString()
             binding.currentMaxTemp.text = it.daily[0].temp.max.toString() + "°" //detail
             binding.currentMinTemp.text = it.daily[0].temp.min.toString() + "°" //detail
             binding.currentTemperature.text = it.current.temp.toString() + "°"
             binding.currentFeelsLike.text = it.current.feelsLike.toString() + "°" //detail
-            binding.currentConditions.text = it.current.weather[0].description//.capitalize()
+            binding.currentConditions.text = it.current.weather[0].main//.capitalize()
 
             //TODO : Bindings todo = Humidity, Pressure, UV Index, Dew Point, Visibility
+            binding.currentHumidity.text = it.current.humidity.toString() + "%"
+            binding.currentDewPoint.text = it.current.dewPoint.toString() + "°"
+            binding.currentPressure.text = it.current.pressure.toString() +
             //There are currently 5 hourly update textview // Please let me know if we need less or more
             //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
             //Each view contained in HourlyView has a corresponding icon, temp, and time
+
             //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
 
             setFragmentResult("key_to_weekly", bundleOf("daily" to it.daily))
@@ -141,6 +146,31 @@ class CurrentLocationFragment : Fragment() {
 
 
         return root
+    }
+
+    fun setIcon(icon: String): Int{
+        var iconNumber = when (icon){
+            "01d" -> R.drawable.w_clear_sky_day
+            "01n" -> R.drawable.w_clear_sky_night
+            "02d" -> R.drawable.w_few_clouds_day
+            "02n" -> R.drawable.w_few_clouds_night
+            "03d" -> R.drawable.w_scattered_clouds
+            "03n" -> R.drawable.w_scattered_clouds
+            "04d" -> R.drawable.w_broken_clouds
+            "04n" -> R.drawable.w_broken_clouds
+            "09d" -> R.drawable.w_shower_rain
+            "09n" -> R.drawable.w_shower_rain
+            "10d" -> R.drawable.w_rain_day
+            "10n" -> R.drawable.w_rain_night
+            "11d" -> R.drawable.w_thunderstorm
+            "11n" -> R.drawable.w_thunderstorm
+            "13d" -> R.drawable.w_snow
+            "13n" -> R.drawable.w_snow
+            "50d" -> R.drawable.w_mist
+            "50n" -> R.drawable.w_mist
+            else -> R.drawable.w_clear_sky_day
+        }
+        return iconNumber
     }
 
     override fun onDestroyView() {
