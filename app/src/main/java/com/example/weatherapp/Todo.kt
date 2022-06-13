@@ -12,3 +12,4 @@ package com.example.weatherapp
 //[] Loaders (Neena)
 //[] Delete Map Fragment (Neena)
 //[x] Update weather icons (Devon)
+//[] Create Slideshow (Devon)
