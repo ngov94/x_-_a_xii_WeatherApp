@@ -8,7 +8,7 @@ package com.example.weatherapp
 //[x] crashlytics + Timber logging (Devon)
 //[] testing/Mock (Kurt)
 //[] Moving from fragment to fragment should not refresh it (Neena)
-//[] Theming - Day and Night (Devon)
+//[x] Theming - Day and Night (Devon)
 //[] Loaders (Neena)
 //[] Delete Map Fragment (Neena)
 //[x] Update weather icons (Devon)
