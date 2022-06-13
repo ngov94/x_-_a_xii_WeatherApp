@@ -9,16 +9,16 @@ import retrofit2.Response
 
 class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDao) {
 
-    suspend fun getCurrentWeather(
+  fun getCurrentWeather(
         latitude: String,
         longitude: String,
         apiKey: String,
         unit: String
     ) = inter.getCurrentWeather(latitude, longitude, apiKey, unit)
 
-    suspend fun getGeoloaction(googleApi: String) = inter.getGeoloaction(googleApi)
+    fun getGeoloaction(googleApi: String) = inter.getGeoloaction(googleApi)
 
-    suspend fun getCurrentCity(latLng:String, cagedDataKey:String) = inter.getCurrentCity(latLng, cagedDataKey)
+    fun getCurrentCity(latLng:String, cagedDataKey:String) = inter.getCurrentCity(latLng, cagedDataKey)
 
     fun getAllWeather(): LiveData<AllWeatherEntity> {
         return dao.getAllWeather()

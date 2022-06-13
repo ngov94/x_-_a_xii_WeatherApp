@@ -13,11 +13,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherapp.APIResponse.Daily
+import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.APIResponse.LocationWeather
 import com.example.weatherapp.DataBase.FavLocations
+import com.example.weatherapp.DataBase.PlaceName
 import com.example.weatherapp.DataBase.WeatherDatabase
 import com.example.weatherapp.R
 import com.example.weatherapp.RetroApiInterface
@@ -34,6 +36,9 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.limited_favorites_inflatable.view.*
 import java.lang.Exception
 
@@ -47,6 +52,9 @@ class LocationsFragment : Fragment() {
     val adapter = LocationAdapter(locWeatherList)
     lateinit var locationViewModel: LocationViewModel
 
+
+    var locationWeather = ArrayList<LocationWeather>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,12 +66,16 @@ class LocationsFragment : Fragment() {
         val repo = WeatherRepository(intr, dao)
         locationViewModel = LocationViewModel(repo)
         val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
-        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"
+//        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"
+        val weatherApiKey = "d911015e54f48d2bf96b5dcaef433a6a"
         var unit = "metric"
 
 
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        binding.favoritesRecycler.adapter = adapter
+        binding.favoritesRecycler.layoutManager = LinearLayoutManager(activity)
+
 
         binding.addButton.setOnClickListener {
             Places.initialize(context!!, googleApi)
@@ -78,22 +90,36 @@ class LocationsFragment : Fragment() {
         }
 //        <---End of Codes for Google autocomplete Fragment --->
 
-        //Recycler view of location list
-        locationViewModel.favLocationsList.observe(viewLifecycleOwner){
-            locationViewModel.getFavLocationWeatherList(it, weatherApiKey, unit)
-        }
 
-        binding.favoritesRecycler.adapter = adapter
-        binding.favoritesRecycler.layoutManager = LinearLayoutManager(activity)
+        locationViewModel.favLocationsList.observe(viewLifecycleOwner) {
+            locationWeather.clear()
+            for (loc in it) {
+                locationViewModel.getCurrentWeather(
+                    loc.latitude,
+                    loc.longitude,
+                    weatherApiKey,
+                    unit
+                )
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeBy(
+                        onNext = {
+                            locationWeather.add(LocationWeather(it,loc))
+                        },
+                        onComplete = {
+                            locWeatherList.clear()
+                            locationWeather.sortByDescending {it.favLocations.id}
+                            locWeatherList.addAll(locationWeather)
+                            adapter.notifyDataSetChanged()
+                        },
+                        onError = { e -> println("this is error $e") }
 
-        locationViewModel.favLocationWeatherList.observe(viewLifecycleOwner){
-            locWeatherList.clear()
-            locWeatherList.addAll(it)
-            adapter.notifyDataSetChanged()
+                    )
+            }
         }
 
         //Delete Fav Location
-        adapter.setOnItemLongClickListener(object : LocationAdapter.OnItemLongClickListener{
+        adapter.setOnItemLongClickListener(object : LocationAdapter.OnItemLongClickListener {
             override fun onItemLongClick(itemView: View) {
                 var locId = itemView.fav_item_location_id.text.toString().toInt()
                 var locName = itemView.fav_item_location.text.toString()
@@ -128,10 +154,17 @@ class LocationsFragment : Fragment() {
                 Activity.RESULT_OK -> {
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(data)
-                        var placeName = place.address?.toString()
+                        var placeName = place.address!!.split(",")
+                        var shortPlaceName = placeName[0]+", "+placeName[1]
                         var latitude = place.latLng?.latitude.toString()
                         var longitude = place.latLng?.longitude.toString()
-                        locationViewModel.insertFavLocation(FavLocations(placeName = placeName!!, latitude =  latitude, longitude = longitude))
+                        locationViewModel.insertFavLocation(
+                            FavLocations(
+                                placeName = shortPlaceName,
+                                latitude = latitude,
+                                longitude = longitude
+                            )
+                        )
 
                         Log.i(TAG, "Place: ${place.name}, ${place.id}")
                     }
@@ -151,37 +184,6 @@ class LocationsFragment : Fragment() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+
 }
 
-//    lateinit var vm : WeatherViewModel
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        //setContentView(R.layout.activity_locations_fragment)
-//
-//
-//        val intr = RetroApiInterface.create()
-//        val repo = WeatherRepository(intr)
-//        vm = WeatherViewModel(repo)
-//
-//        vm.currentWeather.observe(this) {
-//            val gson = GsonBuilder().setPrettyPrinting().create()
-//            val pJson = gson.toJson(it)
-//            println(pJson)
-//
-//            tv_city_name.text = it.name
-//            tv_date_and_time.text = SimpleDateFormat("dd/M/yyyy hh:mm a").format(Date())
-//            tv_day_max_temp.text = "Day " + it.main.tempMax.toString()+"º"
-//            tv_day_min_temp.text = "Night " +it.main.tempMin.toString()+"º"
-//            tv_current_temp.text = it.main.temp.toString()+"º"
-//            tv_feels_like.text = "Feels like "+ it.main.feelsLike.toString()+"º"
-//            tv_weather_type.text = it.weather[0].description.capitalize()
-//        }
-//
-//        var latitude = "40.71427"
-//        var longitude = "-74.00597"
-//        var apiKey = "2969a813a03aab47497e1da3a8cf1a81"
-//        var String = "metric"  //imperial
-//
-//        vm.getCurrentWeather(latitude,longitude,apiKey,String)
-//    }
