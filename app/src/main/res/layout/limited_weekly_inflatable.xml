@@ -53,7 +53,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="18dp"
-                    android:src="@drawable/clear"
+                    android:src="@drawable/w_clear_sky_day"
                     android:layout_gravity="center"
                     android:layout_weight=".6"/>
 
