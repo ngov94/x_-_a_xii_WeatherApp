@@ -48,14 +48,14 @@ class WeeklyFragment : Fragment() {
         _binding = FragmentWeeklyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //Date Range
-        var dateNow = SimpleDateFormat("MMMM d").format(Date())
-
-        var localnow = Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        var localWeek = Date.from(localnow.plusDays(7).atStartOfDay(ZoneId.systemDefault()).toInstant())
-        var dateWeekfromNow = SimpleDateFormat("MMMM d").format(localWeek)
-
-        binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
+//        //Date Range
+//        var dateNow = SimpleDateFormat("MMMM d").format(Date())
+//
+//        var localnow = Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+//        var localWeek = Date.from(localnow.plusDays(7).atStartOfDay(ZoneId.systemDefault()).toInstant())
+//        var dateWeekfromNow = SimpleDateFormat("MMMM d").format(localWeek)
+//
+//        binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
 
         // Weekly Recycler View
         binding.futureRecycler.adapter = adapter
@@ -65,6 +65,13 @@ class WeeklyFragment : Fragment() {
             weeklyList.clear()
             weeklyList.addAll(result.get("daily") as List<Daily>)
             adapter.notifyDataSetChanged()
+
+            //Date Range on top
+            var dateNow = SimpleDateFormat("MMMM d").format(weeklyList.first().dt.toLong()*1000)
+            var dateWeekfromNow = SimpleDateFormat("MMMM d").format(weeklyList.last().dt.toLong()*1000)
+
+            binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
+
         }
 
         return root

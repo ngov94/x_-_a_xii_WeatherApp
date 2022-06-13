@@ -25,17 +25,14 @@ class WeeklyAdapter(private val dailyList: List<Daily>) : RecyclerView.Adapter<V
         val item = dailyList[position]
 
         var date = SimpleDateFormat("EEE d").format(Date(item.dt.toLong()*1000))
-        var today = SimpleDateFormat("EEE d").format(Date())
+
 
 
         holder.itemMaxTextView.text = item.temp.max.roundToInt().toString()+ "°"
         holder.itemMinTextView.text = item.temp.min.roundToInt().toString()+ "°"
         holder.itemPrecipTextView.text = (item.pop*100).roundToInt().toString()+ "%"
-        if(date.equals(today)){
-            holder.itemDateTextView.text = "Today"
-        }else{
-            holder.itemDateTextView.text = date
-        }
+        holder.itemDateTextView.text = date
+
 
         var icon = when (item.weather.first().icon){
             "01d" -> R.drawable.w_clear_sky_day

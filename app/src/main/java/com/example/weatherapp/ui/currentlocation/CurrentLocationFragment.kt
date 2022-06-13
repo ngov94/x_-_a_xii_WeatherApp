@@ -1,5 +1,7 @@
 package com.example.weatherapp.ui.currentlocation
 
+import android.app.ActionBar
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -48,6 +50,8 @@ class CurrentLocationFragment : Fragment() {
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
 //        val textView: TextView = binding.textCurrentLocation
 //        currentLocationViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
@@ -92,6 +96,7 @@ class CurrentLocationFragment : Fragment() {
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
+                autocompleteFragment.setHint(place.address)
             }
 
             override fun onError(status: Status) {
@@ -108,8 +113,8 @@ class CurrentLocationFragment : Fragment() {
 //          println(pJson)
             //inserting date in shortened format
 
-            binding.currentDate.text = SimpleDateFormat("MMM dd").format(Date()).toString()
-            binding.currentTime.text = SimpleDateFormat("h:mm a").format(Date()).toString()
+            binding.currentDate.text = SimpleDateFormat("MMM dd").format(it.current.dt.toLong()*1000).toString()
+            binding.currentTime.text = SimpleDateFormat("h:mm a").format(it.current.dt.toLong()*1000).toString()
 
             binding.currentTemperature.text = it.current.temp.roundToInt().toString() + "°"
             binding.currentConditions.text = it.current.weather[0].main//.capitalize()
@@ -151,6 +156,15 @@ class CurrentLocationFragment : Fragment() {
 
 
             //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
+            if (it.alerts != null){
+                binding.alertSection.visibility = View.VISIBLE
+                binding.alertEvent.text = it.alerts[0].event.uppercase()
+                binding.alertDescrip.text = it.alerts[0].description
+                binding.alertSender.text = it.alerts[0].senderName
+
+            }else{
+                binding.alertSection.visibility = View.GONE
+            }
 
 
 
@@ -167,6 +181,7 @@ class CurrentLocationFragment : Fragment() {
             var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
             //binding.tvCityName.text = placeName TODO : Please insert this into the searchbar // searchViewID.setQuery(searchToken, false);
+            autocompleteFragment.setHint(placeName)
         }
 
 
