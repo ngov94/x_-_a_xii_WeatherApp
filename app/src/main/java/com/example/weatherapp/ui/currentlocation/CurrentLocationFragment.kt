@@ -111,8 +111,8 @@ class CurrentLocationFragment : Fragment() {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
 //          println(pJson)
-            //inserting date in shortened format
 
+            // Weather data
             binding.currentDate.text = SimpleDateFormat("MMM dd").format(it.current.dt.toLong()*1000).toString()
             binding.currentTime.text = SimpleDateFormat("h:mm a").format(it.current.dt.toLong()*1000).toString()
 
@@ -131,9 +131,7 @@ class CurrentLocationFragment : Fragment() {
             binding.currentFeelsLike.text = it.current.feelsLike.roundToInt().toString() + "°" //detail
 
 
-            //There are currently 5 hourly update textview // Please let me know if we need less or more
-            //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
-            //Each view contained in HourlyView has a corresponding icon, temp, and time
+            //5 hourly update textview
             binding.hourlyIconOne.setImageDrawable(context?.getDrawable(setIcon(it.hourly[1].weather[0].icon)))
             binding.tempOne.text = it.hourly[1].temp.roundToInt().toString()
             binding.timeOne.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[1].dt.toLong()*1000))
@@ -154,8 +152,7 @@ class CurrentLocationFragment : Fragment() {
             binding.tempFive.text = it.hourly[5].temp.roundToInt().toString()
             binding.timeFive.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[5].dt.toLong()*1000))
 
-
-            //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
+            //alerts
             if (it.alerts != null){
                 binding.alertSection.visibility = View.VISIBLE
                 binding.alertEvent.text = it.alerts[0].event.uppercase()
@@ -166,11 +163,7 @@ class CurrentLocationFragment : Fragment() {
                 binding.alertSection.visibility = View.GONE
             }
 
-
-
             setFragmentResult("key_to_weekly", bundleOf("daily" to it.daily))
-            //Sending google api and unit to location fragment
-            setFragmentResult("key_to_location", bundleOf("apikey" to googleApi, "unit" to units))
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
@@ -180,7 +173,7 @@ class CurrentLocationFragment : Fragment() {
             var state = it.results[0].components.state
             var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
-            //binding.tvCityName.text = placeName TODO : Please insert this into the searchbar // searchViewID.setQuery(searchToken, false);
+
             autocompleteFragment.setHint(placeName)
         }
 
