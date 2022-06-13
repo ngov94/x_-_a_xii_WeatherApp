@@ -3,8 +3,10 @@ package com.example.weatherapp
 import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.GeolocationApi.Geolocation
 import com.example.weatherapp.ReverseGeocoding.CurrentCity
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
@@ -14,25 +16,25 @@ interface RetroApiInterface {
 
 
     @GET("onecall")
-    suspend fun getCurrentWeather(
+    fun getCurrentWeather(
         @Query("lat") latitude: String,
         @Query("lon") longitude: String,
         @Query("appid") apikey: String,
         @Query("units") unit: String,
 //        @Query("exclude") exclude:String = "minutely,hourly,alerts"
-    ): Response<AllWeather>
+    ): Observable<AllWeather>
 
     @POST("https://www.googleapis.com/geolocation/v1/geolocate")
-    suspend fun getGeoloaction(
+    fun getGeoloaction(
         @Query("key") googleApi: String
-    ): Response<Geolocation>
+    ): Observable<Geolocation>
 
 
     @GET("https://api.opencagedata.com/geocode/v1/json")
-    suspend fun getCurrentCity(
+    fun getCurrentCity(
         @Query("q") latLng: String,
         @Query("key") cagedDataKey: String
-    ): Response<CurrentCity>
+    ): Observable<CurrentCity>
 
 
     /// https://api.openweathermap.org/data/2.5/weather?lat=43.452969&lon=-80.495064&appid=2969a813a03aab47497e1da3a8cf1a81
@@ -41,6 +43,7 @@ interface RetroApiInterface {
         fun create(): RetroApiInterface {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build()
             return retrofit.create(RetroApiInterface::class.java)
