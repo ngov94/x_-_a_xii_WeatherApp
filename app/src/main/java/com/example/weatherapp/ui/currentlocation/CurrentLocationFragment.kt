@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.weatherapp.WeatherViewModel
@@ -33,6 +34,12 @@ class CurrentLocationFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var placesClient: PlacesClient
+    lateinit var currentLocationViewModel: WeatherViewModel
+
+    val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
+    val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
+    val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
+    var units = "metric"  //imperial
 
 
 
@@ -45,23 +52,16 @@ class CurrentLocationFragment : Fragment() {
         val intr = RetroApiInterface.create()
         val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
         val repo = WeatherRepository(intr, dao)
-        val currentLocationViewModel = WeatherViewModel(repo)
+        currentLocationViewModel = WeatherViewModel(repo)
 
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 
 
 //        val textView: TextView = binding.textCurrentLocation
 //        currentLocationViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-
-        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
-        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
-        val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
-        var units = "metric"  //imperial
-
 
 
         //TODO : update current_degree_metric along with calculations
@@ -214,4 +214,5 @@ class CurrentLocationFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

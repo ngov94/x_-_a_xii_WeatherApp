@@ -56,4 +56,13 @@ class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDa
     fun deleteFavLocation(favLocation: FavLocations){
         return dao.deleteFavLocation(favLocation)
     }
+
+    // For Master - Unit
+    fun insertMaster(master: Master){
+        return dao.insertMaster(master)
+    }
+
+    fun getMaster(): LiveData<Master>{
+        return dao.getMaster()
+    }
 }

@@ -38,7 +38,7 @@ interface WeatherDao {
     fun insertMaster(master: Master)
 
     @Query("SELECT * from master where id =0")
-    fun getMaster(master: Master)
+    fun getMaster(): LiveData<Master>
 
 
 }
