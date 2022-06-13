@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 
+import androidx.lifecycle.LiveData
 import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.DataBase.FavLocations
 import com.example.weatherapp.DataBase.WeatherDao
@@ -30,6 +31,9 @@ class LocationViewModelUnitTest {
     @Mock
     lateinit var fakeAllWeather : AllWeather
 
+    @Mock
+    lateinit var fakeLiveListFavLocation : LiveData<List<FavLocations>>
+
     @Before
     fun setup(){
         MockitoAnnotations.openMocks(this)
@@ -42,18 +46,18 @@ class LocationViewModelUnitTest {
         //
     }
 
-//    @Test
-//    fun getFavLocationWeatherListTest(){
-//        runBlocking {
-//            val fakeListFavLocation = listOf(FavLocations("LA","40","70"))
-//
-//            Mockito.`when`(repo.getFavLocationsList())
-//                .thenReturn(fakeListFavLocation)
-//
-//            vm.getFavLocationWeatherList(fakeListFavLocation, "0","0")
-//            val result = repo.getFavLocationsList()
-//
-//            assertEquals(fakeListFavLocation, result)
-//        }
-//    }
+    @Test
+    fun getFavLocationWeatherListTest(){
+        runBlocking {
+            val fakeListFavLocation = listOf(FavLocations("LA","40","70"))
+
+            Mockito.`when`(repo.getFavLocationsList())
+                .thenReturn(fakeLiveListFavLocation)
+
+            vm.getFavLocationWeatherList(fakeListFavLocation, "0","0")
+            val result = repo.getFavLocationsList()
+
+            assertEquals(fakeLiveListFavLocation, result)
+        }
+    }
 }

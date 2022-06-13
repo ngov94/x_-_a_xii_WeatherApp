@@ -1,10 +1,14 @@
 package com.example.weatherapp
 
+import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.lifecycle.Lifecycle
 import com.example.weatherapp.APIResponse.Daily
 import com.example.weatherapp.APIResponse.FeelsLike
 import com.example.weatherapp.APIResponse.Temp
 import com.example.weatherapp.APIResponse.Weather
 import com.example.weatherapp.ui.weekly.WeeklyAdapter
+import com.example.weatherapp.ui.weekly.WeeklyFragment
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -17,9 +21,16 @@ class WeeklyAdapterUnitTest {
 
     lateinit var adapter: WeeklyAdapter
     lateinit var fakeDailyList: List<Daily>
+    lateinit var scenario: FragmentScenario<WeeklyFragment>
 
     @Before
     fun setup(){
+            scenario = launchFragmentInContainer(
+                fragmentArgs = null,
+                themeResId = R.style.Theme_WeatherApp,
+                initialState = Lifecycle.State.RESUMED
+            )
+
         MockitoAnnotations.openMocks(this)
         fakeDailyList = listOf(Daily(1,1.1,1, FeelsLike(1.1,
             1.1,1.1,1.1), 1, 1.1, 1, 1.1, 1,
