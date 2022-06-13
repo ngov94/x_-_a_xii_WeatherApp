@@ -20,9 +20,4 @@
         android:name="com.example.weatherapp.ui.weekly.WeeklyFragment"
         android:label="fragment_weekly"
         tools:layout="@layout/fragment_weekly" />
-    <fragment
-        android:id="@+id/mapFragment2"
-        android:name="com.example.weatherapp.ui.map.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
 </navigation>

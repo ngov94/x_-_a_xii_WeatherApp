@@ -1,10 +1,13 @@
 package com.example.weatherapp.ui.currentlocation
 
+import android.app.ActionBar
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.weatherapp.WeatherViewModel
@@ -23,6 +26,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.gson.GsonBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class CurrentLocationFragment : Fragment() {
 
@@ -30,6 +34,12 @@ class CurrentLocationFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var placesClient: PlacesClient
+    lateinit var currentLocationViewModel: WeatherViewModel
+
+    val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
+    val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
+    val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
+    var units = "metric"  //imperial
 
 
 
@@ -42,21 +52,16 @@ class CurrentLocationFragment : Fragment() {
         val intr = RetroApiInterface.create()
         val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
         val repo = WeatherRepository(intr, dao)
-        val currentLocationViewModel = WeatherViewModel(repo)
+        currentLocationViewModel = WeatherViewModel(repo)
 
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
 
 //        val textView: TextView = binding.textCurrentLocation
 //        currentLocationViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-
-        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
-        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
-        val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
-        var units = "metric"  //imperial
-
 
 
         //TODO : update current_degree_metric along with calculations
@@ -91,6 +96,7 @@ class CurrentLocationFragment : Fragment() {
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
+                autocompleteFragment.setHint(place.address)
             }
 
             override fun onError(status: Status) {
@@ -105,24 +111,59 @@ class CurrentLocationFragment : Fragment() {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val pJson = gson.toJson(it)
 //          println(pJson)
-            //inserting date in shortened format
 
-            binding.currentDate.text = SimpleDateFormat("MMM dd").format(Date()).toString()
-            binding.currentMaxTemp.text = it.daily[0].temp.max.toString() + "°" //detail
-            binding.currentMinTemp.text = it.daily[0].temp.min.toString() + "°" //detail
-            binding.currentTemperature.text = it.current.temp.toString() + "°"
-            binding.currentFeelsLike.text = it.current.feelsLike.toString() + "°" //detail
-            binding.currentConditions.text = it.current.weather[0].description//.capitalize()
+            // Weather data
+            binding.currentDate.text = SimpleDateFormat("MMM dd").format(it.current.dt.toLong()*1000).toString()
+            binding.currentTime.text = SimpleDateFormat("h:mm a").format(it.current.dt.toLong()*1000).toString()
 
-            //TODO : Bindings todo = Humidity, Pressure, UV Index, Dew Point, Visibility
-            //There are currently 5 hourly update textview // Please let me know if we need less or more
-            //TODO : HourlyView binding = (hourly_icon_one, hourly_icon_two...) , (temp_one, temp_two, ...) , (time_one, time_two, ...)
-            //Each view contained in HourlyView has a corresponding icon, temp, and time
-            //TODO : Please inflate the alert view (setVisibility(VISIBLE)) should there be an alert on update
+            binding.currentTemperature.text = it.current.temp.roundToInt().toString() + "°"
+            binding.currentConditions.text = it.current.weather[0].main//.capitalize()
+            binding.currentIcon.setImageDrawable(context?.getDrawable(setIcon(it.current.weather[0].icon)))
+
+
+            binding.currentHumidity.text = it.current.humidity.toString() + "%"
+            binding.currentDewPoint.text = it.current.dewPoint.roundToInt().toString() + "°"
+            binding.currentPressure.text = it.current.pressure.toString() + " hPa"
+            binding.currentUvIndex.text = it.current.uvi.toString()
+            binding.currentVisibility.text = it.current.visibility.toString()+ "m"
+            binding.currentMaxTemp.text = it.daily[0].temp.max.roundToInt().toString() + "°" //detail
+            binding.currentMinTemp.text = it.daily[0].temp.min.roundToInt().toString() + "°" //detail
+            binding.currentFeelsLike.text = it.current.feelsLike.roundToInt().toString() + "°" //detail
+
+
+            //5 hourly update textview
+            binding.hourlyIconOne.setImageDrawable(context?.getDrawable(setIcon(it.hourly[1].weather[0].icon)))
+            binding.tempOne.text = it.hourly[1].temp.roundToInt().toString()
+            binding.timeOne.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[1].dt.toLong()*1000))
+
+            binding.hourlyIconTwo.setImageDrawable(context?.getDrawable(setIcon(it.hourly[2].weather[0].icon)))
+            binding.tempTwo.text = it.hourly[2].temp.roundToInt().toString()
+            binding.timeTwo.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[2].dt.toLong()*1000))
+
+            binding.hourlyIconThree.setImageDrawable(context?.getDrawable(setIcon(it.hourly[3].weather[0].icon)))
+            binding.tempThree.text = it.hourly[3].temp.roundToInt().toString()
+            binding.timeThree.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[3].dt.toLong()*1000))
+
+            binding.hourlyIconFour.setImageDrawable(context?.getDrawable(setIcon(it.hourly[4].weather[0].icon)))
+            binding.tempFour.text = it.hourly[4].temp.roundToInt().toString()
+            binding.timeFour.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[4].dt.toLong()*1000))
+
+            binding.hourlyIconFive.setImageDrawable(context?.getDrawable(setIcon(it.hourly[5].weather[0].icon)))
+            binding.tempFive.text = it.hourly[5].temp.roundToInt().toString()
+            binding.timeFive.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[5].dt.toLong()*1000))
+
+            //alerts
+            if (it.alerts != null){
+                binding.alertSection.visibility = View.VISIBLE
+                binding.alertEvent.text = it.alerts[0].event.uppercase()
+                binding.alertDescrip.text = it.alerts[0].description
+                binding.alertSender.text = it.alerts[0].senderName
+
+            }else{
+                binding.alertSection.visibility = View.GONE
+            }
 
             setFragmentResult("key_to_weekly", bundleOf("daily" to it.daily))
-            //Sending google api and unit to location fragment
-            setFragmentResult("key_to_location", bundleOf("apikey" to googleApi, "unit" to units))
         }
 
         currentLocationViewModel.currentCity.observe(viewLifecycleOwner) {
@@ -132,7 +173,8 @@ class CurrentLocationFragment : Fragment() {
             var state = it.results[0].components.state
             var country = it.results[0].components.country
             var placeName = "$city, $state, $country"
-            //binding.tvCityName.text = placeName TODO : Please insert this into the searchbar // searchViewID.setQuery(searchToken, false);
+
+            autocompleteFragment.setHint(placeName)
         }
 
 
@@ -143,8 +185,34 @@ class CurrentLocationFragment : Fragment() {
         return root
     }
 
+    fun setIcon(icon: String): Int{
+        var iconNumber = when (icon){
+            "01d" -> R.drawable.w_clear_sky_day
+            "01n" -> R.drawable.w_clear_sky_night
+            "02d" -> R.drawable.w_few_clouds_day
+            "02n" -> R.drawable.w_few_clouds_night
+            "03d" -> R.drawable.w_scattered_clouds
+            "03n" -> R.drawable.w_scattered_clouds
+            "04d" -> R.drawable.w_broken_clouds
+            "04n" -> R.drawable.w_broken_clouds
+            "09d" -> R.drawable.w_shower_rain
+            "09n" -> R.drawable.w_shower_rain
+            "10d" -> R.drawable.w_rain_day
+            "10n" -> R.drawable.w_rain_night
+            "11d" -> R.drawable.w_thunderstorm
+            "11n" -> R.drawable.w_thunderstorm
+            "13d" -> R.drawable.w_snow
+            "13n" -> R.drawable.w_snow
+            "50d" -> R.drawable.w_mist
+            "50n" -> R.drawable.w_mist
+            else -> R.drawable.w_clear_sky_day
+        }
+        return iconNumber
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
