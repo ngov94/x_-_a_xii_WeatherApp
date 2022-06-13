@@ -21,6 +21,7 @@
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/day_rainy_gradient.xml" value="0.1" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
+        <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_baseline_map_24.xml" value="0.129" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.1" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/light_translucent_bubble.xml" value="0.1" />
@@ -29,7 +30,7 @@
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/drawable/sunny_gradient.xml" value="0.1" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/activity_locations_fragment.xml" value="0.18" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/fragment_current_location.xml" value="0.12" />
+        <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/fragment_current_location.xml" value="0.22" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/fragment_map.xml" value="0.17617753623188406" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/fragment_weekly.xml" value="0.17617753623188406" />
         <entry key="..\:/Users/16263/StudioProjects/x_-_a_xii_Weather/app/src/main/res/layout/limited_favorites_inflatable.xml" value="0.17617753623188406" />
