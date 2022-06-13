@@ -11,4 +11,4 @@ package com.example.weatherapp
 //[] Theming - Day and Night (Devon)
 //[] Loaders (Neena)
 //[] Delete Map Fragment (Neena)
-//[] Update weather icons (Devon)
+//[x] Update weather icons (Devon)
