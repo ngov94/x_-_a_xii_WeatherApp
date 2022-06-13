@@ -12,6 +12,7 @@ import com.example.weatherapp.DataBase.FavLocations
 import com.example.weatherapp.DataBase.PlaceName
 import com.example.weatherapp.GeolocationApi.Geolocation
 import com.example.weatherapp.ReverseGeocoding.CurrentCity
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,41 +40,28 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
 
     }
 
-    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
-        throwable.printStackTrace()
+//    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
+//        throwable.printStackTrace()
+//    }
+
+
+    fun getCurrentWeather(
+        latitude: String,
+        longitude: String,
+        apiKey: String,
+        unit: String
+    ): Observable<AllWeather> {
+        return repo.getCurrentWeather(latitude, longitude, apiKey, unit)
     }
 
 
-    fun getCurrentWeather(latitude: String, longitude: String, apiKey: String, unit: String) {
-        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-            var res = repo.getCurrentWeather(latitude, longitude, apiKey, unit)
-            if(res.isSuccessful) {
-                currentWeather.postValue(res.body())
-            }
-
-        }
+    fun getGeoloaction(googleApi: String): Observable<Geolocation> {
+        return repo.getGeoloaction(googleApi)
     }
 
 
-    fun getGeoloaction(googleApi: String) {
-        CoroutineScope(Dispatchers.IO+ coroutineExceptionHandler).launch {
-            var res = repo.getGeoloaction(googleApi)
-            if(res.isSuccessful) {
-                currentLocation.postValue(res.body())
-            }
+    fun getCurrentCity(latLng: String, cagedDataKey: String) = repo.getCurrentCity(latLng, cagedDataKey)
 
-        }
-    }
-
-    fun getCurrentCity(latLng:String, cagedDataKey:String) {
-        CoroutineScope(Dispatchers.IO+ coroutineExceptionHandler).launch {
-            var res = repo.getCurrentCity(latLng, cagedDataKey)
-            if(res.isSuccessful) {
-                currentCity.postValue(res.body())
-            }
-
-        }
-    }
 
     fun insertWeather(weather: AllWeatherEntity) = viewModelScope.launch{
         repo.insertWeather(weather)
