@@ -141,6 +141,7 @@
                  android:gravity="center"
                  android:orientation="vertical"
                  android:visibility="gone"
+                 android:layout_marginTop="8dp"
                  app:layout_constraintTop_toBottomOf="@id/current_weather_section"
                  app:layout_constraintLeft_toLeftOf="parent"
                  app:layout_constraintRight_toRightOf="parent">
@@ -148,21 +149,37 @@
                  <TextView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="ALERT LOCATION"
+                     android:text="Emergency Alert!"
                      android:fontFamily="@font/google_sans_bold"
                      android:textSize="18dp"/>
+
+
                  <TextView
+                     android:id="@+id/alert_event"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="ALERT"
+                     android:text="Small Craft Advisory"
                      android:fontFamily="@font/google_sans_bold"
-                     android:textSize="72dp"/>
+                     android:textSize="30sp"/>
                  <TextView
+                     android:id="@+id/alert_descrip"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="ALERT DESCRIPTION"
+                     android:layout_marginStart="8dp"
+                     android:layout_marginEnd="8dp"
+                     android:text="...SMALL CRAFT ADVISORY REMAINS IN EFFECT FROM 5 PM THIS\nAFTERNOON TO 3 AM EST FRIDAY...\n* WHAT...North winds 15 to 20 kt with gusts up to 25 kt and seas\n3 to 5 ft expected.\n* WHERE...Coastal waters from Little Egg Inlet to Great Egg\nInlet NJ out 20 nm, Coastal waters from Great Egg Inlet to\nCape May NJ out 20 nm and Coastal waters from Manasquan Inlet\nto Little Egg Inlet NJ out 20 nm.\n* WHEN...From 5 PM this afternoon to 3 AM EST Friday.\n* IMPACTS...Conditions will be hazardous to small craft."
+                     android:fontFamily="@font/google_sans_medium"
+                     android:textSize="14sp"/>
+                 <TextView
+                     android:id="@+id/alert_sender"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="8dp"
+                     android:layout_marginEnd="8dp"
+                     android:textAlignment="center"
+                     android:text="(NWS Philadelphia - Mount Holly (New Jersey, Delaware, Southeastern Pennsylvania))"
                      android:fontFamily="@font/google_sans_bold"
-                     android:textSize="18dp"/>
+                     android:textSize="10sp"/>
              </LinearLayout>
              <HorizontalScrollView
                  android:id="@+id/hourly_forecast_section"

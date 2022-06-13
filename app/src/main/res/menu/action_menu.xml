@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--        <item-->
+    <!--            android:id="@+id/switch_action_bar"-->
+    <!--            android:title="Switch"-->
+    <!--            android:actionLayout="@layout/toolbar"-->
+    <!--            app:showAsAction="always" />-->
+    <item
+        android:id="@+id/degreeUnit"
+        android:icon="@drawable/unit_imperial"
+        android:title="Imperial Units"
+        app:showAsAction="always"/>
+</menu>
