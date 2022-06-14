@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
     val fm: FragmentManager = supportFragmentManager
     var active: Fragment = fragmentCurrentLocation
 
-    var unit ="imperial"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
