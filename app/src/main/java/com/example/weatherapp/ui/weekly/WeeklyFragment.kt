@@ -32,8 +32,8 @@ class WeeklyFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    val weeklyList = ArrayList<Daily>()
-    val adapter = WeeklyAdapter(weeklyList)
+    private val weeklyList = ArrayList<Daily>()
+    private val adapter = WeeklyAdapter(weeklyList)
 
 
     @RequiresApi(Build.VERSION_CODES.O)

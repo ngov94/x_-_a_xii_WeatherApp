@@ -8,7 +8,7 @@
     <!--            app:showAsAction="always" />-->
     <item
         android:id="@+id/degreeUnit"
-        android:icon="@drawable/unit_imperial"
-        android:title="Imperial Units"
+        android:icon="@drawable/unit_metric"
+        android:title="Metric Units"
         app:showAsAction="always"/>
 </menu>

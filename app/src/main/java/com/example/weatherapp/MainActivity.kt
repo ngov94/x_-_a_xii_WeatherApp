@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-    val fragmentCurrentLocation = CurrentLocationFragment()
-    val fragmentWeekly = WeeklyFragment()
-    val fragmentLocation = LocationsFragment()
-    val fm: FragmentManager = supportFragmentManager
+    private val fragmentCurrentLocation = CurrentLocationFragment()
+    private val fragmentWeekly = WeeklyFragment()
+    private val fragmentLocation = LocationsFragment()
+    private val fm: FragmentManager = supportFragmentManager
     var active: Fragment = fragmentCurrentLocation
 
     var unit ="imperial"
@@ -91,26 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.action_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.degreeUnit) {
-            if (unit.equals("imperial")){
-                unit = "metric"
-                item.setIcon(R.drawable.unit_metric)
-                item.setTitle("Metric Units")
-
-            }else{
-                unit = "imperial"
-                item.setIcon(R.drawable.unit_imperial)
-                item.setTitle("Imperial Units")
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 
 }

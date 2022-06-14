@@ -1,35 +1,14 @@
 package com.example.weatherapp
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.APIResponse.LocationWeather
-import com.example.weatherapp.DataBase.AllWeatherEntity
-import com.example.weatherapp.DataBase.CityLatLong
-import com.example.weatherapp.DataBase.FavLocations
-import com.example.weatherapp.DataBase.PlaceName
 import com.example.weatherapp.GeolocationApi.Geolocation
-import com.example.weatherapp.ReverseGeocoding.CurrentCity
 import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
-
-    val getAllWeather : LiveData<AllWeatherEntity>
-    val getLatLong : LiveData<CityLatLong>
-
-    init {
-        getAllWeather = repo.getAllWeather()
-        getLatLong = repo.getLatLong()
-
-
-    }
-
 
     fun getCurrentWeather(
         latitude: String,
@@ -45,10 +24,6 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
     }
 
     fun getCurrentCity(latLng: String, cagedDataKey: String) = repo.getCurrentCity(latLng, cagedDataKey)
-
-    fun getPlaceName() = repo.getPlaceName()
-
-
 
 
 }

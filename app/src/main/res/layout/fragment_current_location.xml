@@ -437,6 +437,20 @@
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
+                         android:text="Feels Like"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:id="@+id/current_feels_like"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="55°"/>
+
+                     <TextView
+                         android:textSize="18dp"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
                          android:text="Max Temp"/>
                      <TextView
                          android:textSize="18dp"
@@ -454,19 +468,6 @@
                      <TextView
                          android:textSize="18dp"
                          android:id="@+id/current_min_temp"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="55°"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="Feels Like"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:id="@+id/current_feels_like"
                          android:layout_width="0dp"
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"

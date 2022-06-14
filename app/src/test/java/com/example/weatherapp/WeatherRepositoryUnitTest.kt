@@ -17,6 +17,8 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response.success
 import com.example.weatherapp.DataBase.*
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import junit.framework.TestCase
 
 @RunWith(JUnit4::class)
@@ -33,11 +35,7 @@ class WeatherRepositoryUnitTest : TestCase() {
     @Mock
     lateinit var fakeAllWeather : AllWeather
 
-    @Mock
-    lateinit var fakeLiveAllWeatherEntity : LiveData<AllWeatherEntity>
 
-    @Mock
-    lateinit var fakeLiveCityLatLong: LiveData<CityLatLong>
 
     @Mock
     lateinit var fakeLiveFavLocations: LiveData<List<FavLocations>>
@@ -53,11 +51,16 @@ class WeatherRepositoryUnitTest : TestCase() {
     fun getCurrentWeatherTest(){
         runBlocking {
             Mockito.`when`(inter.getCurrentWeather("0","0","0","0"))
-                .thenReturn(success(fakeAllWeather))
+                .thenReturn(Observable.just(fakeAllWeather))
 
-            var response = repo.getCurrentWeather("0","0","0","0")
+            var result = repo.getCurrentWeather("0","0","0","0")
 
-            assertEquals(fakeAllWeather,response.body())
+            result.subscribeBy(
+                onNext = {
+                    assertEquals(fakeAllWeather, it)
+                },
+                onError = { println("Error: $it")}
+            )
         }
     }
 
@@ -67,11 +70,16 @@ class WeatherRepositoryUnitTest : TestCase() {
             var fakeGeolocation: Geolocation = Geolocation(Location(70.0, 70.0))
             var fakeApi = "0"
             Mockito.`when`(inter.getGeoloaction(fakeApi))
-                .thenReturn(success(fakeGeolocation))
+                .thenReturn(Observable.just(fakeGeolocation))
 
-            var response = repo.getGeoloaction(fakeApi)
+            var result = repo.getGeoloaction(fakeApi)
 
-            assertEquals(fakeGeolocation,response.body())
+            result.subscribeBy(
+                onNext = {
+                    assertEquals(fakeGeolocation, it)
+                },
+                onError = { println("Error: $it")}
+            )
         }
     }
 
@@ -84,64 +92,27 @@ class WeatherRepositoryUnitTest : TestCase() {
             var fakeApi = "0"
 
             Mockito.`when`(inter.getCurrentCity(fakeLatLng,fakeApi))
-                .thenReturn(success(fakeCurrentCity))
+                .thenReturn(Observable.just(fakeCurrentCity))
 
-            var response = repo.getCurrentCity(fakeLatLng,fakeApi)
+            var result = repo.getCurrentCity(fakeLatLng,fakeApi)
 
-            assertEquals(fakeCurrentCity,response.body())
+            result.subscribeBy(
+                onNext = {
+                    assertEquals(fakeCurrentCity, it)
+                },
+                onError = { println("Error: $it")}
+            )
         }
     }
 
-    @Test
-    fun getAllWeatherTest(){
-        Mockito.`when`(dao.getAllWeather())
-            .thenReturn(fakeLiveAllWeatherEntity)
 
-        var result = repo.getAllWeather()
-
-        assertEquals(fakeLiveAllWeatherEntity,result)
-
-    }
-
-    @Test
-    fun insertWeatherTest(){
-        var fakeWeather: AllWeatherEntity = AllWeatherEntity("33","34",
-        "16","12/12/20","36","Sunny","5am","5pm",
-        "34%","130kph")
-
-        repo.insertWeather(fakeWeather)
-
-        val result = repo.getAllWeather()
-        //Testing insert into Mocked db how do I test
-       // assertEquals(fakeWeather, result.value)
-    }
-
-    @Test
-    fun getLatLongTest() {
-
-        Mockito.`when`(dao.getLatLong())
-            .thenReturn(fakeLiveCityLatLong)
-
-        var result = repo.getLatLong()
-
-        assertEquals(fakeLiveCityLatLong, result)
-    }
 
     @Test
     fun insertLatLong(){
         //
     }
 
-    @Test
-    fun getPlaceNameTest(){
-        var fakePlace : PlaceName = PlaceName("LA")
-        Mockito.`when`(dao.getPlaceName())
-            .thenReturn(fakePlace)
 
-        var result = repo.getPlaceName()
-
-        assertEquals(fakePlace, result)
-    }
 
     @Test
     fun insertPlaceNameTest(){
