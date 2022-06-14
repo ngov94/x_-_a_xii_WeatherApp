@@ -7,9 +7,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +39,9 @@ class LocationsFragment : Fragment() {
     val locWeatherList = ArrayList<LocationWeather>()
     val adapter = LocationAdapter(locWeatherList)
     lateinit var locationViewModel: LocationViewModel
-
+    var units = "metric"  //imperial
+    val googleApi = BuildConfig.GOOGLE_KEY // Google Cloud API
+    val weatherApiKey = BuildConfig.WEATHER_KEY
 
     var locationWeather = ArrayList<LocationWeather>()
 
@@ -51,13 +51,11 @@ class LocationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        setHasOptionsMenu(true)
         val intr = RetroApiInterface.create()
         val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
         val repo = WeatherRepository(intr, dao)
         locationViewModel = LocationViewModel(repo)
-        val googleApi = BuildConfig.GOOGLE_KEY // Google Cloud API
-        val weatherApiKey = BuildConfig.WEATHER_KEY
-        var unit = "metric"
 
 
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)
@@ -79,33 +77,8 @@ class LocationsFragment : Fragment() {
         }
 //        <---End of Codes for Google autocomplete Fragment --->
 
+        allSavedLocations()
 
-        locationViewModel.favLocationsList.observe(viewLifecycleOwner) {
-            locationWeather.clear()
-            for (loc in it) {
-                locationViewModel.getCurrentWeather(
-                    loc.latitude,
-                    loc.longitude,
-                    weatherApiKey,
-                    unit
-                )
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeBy(
-                        onNext = {
-                            locationWeather.add(LocationWeather(it,loc))
-                        },
-                        onComplete = {
-                            locWeatherList.clear()
-                            locationWeather.sortByDescending {it.favLocations.id}
-                            locWeatherList.addAll(locationWeather)
-                            adapter.notifyDataSetChanged()
-                        },
-                        onError = { e -> println("this is error $e") }
-
-                    )
-            }
-        }
 
         //Delete Fav Location
         adapter.setOnItemLongClickListener(object : LocationAdapter.OnItemLongClickListener {
@@ -173,6 +146,63 @@ class LocationsFragment : Fragment() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    fun allSavedLocations() {
+        locationViewModel.favLocationsList.observe(viewLifecycleOwner) {
+            locationWeather.clear()
+            for (loc in it) {
+                locationViewModel.getCurrentWeather(
+                    loc.latitude,
+                    loc.longitude,
+                    weatherApiKey,
+                    units
+                )
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeBy(
+                        onNext = {
+                            locationWeather.add(LocationWeather(it,loc))
+                        },
+                        onComplete = {
+                            locWeatherList.clear()
+                            locationWeather.sortByDescending {it.favLocations.id}
+                            locWeatherList.addAll(locationWeather)
+                            adapter.notifyDataSetChanged()
+                        },
+                        onError = { e -> println("this is error $e") }
+
+                    )
+            }
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.action_menu, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.degreeUnit -> {
+                if (units == "metric") {
+                    units = "imperial"
+                    item.setIcon(R.drawable.unit_imperial)
+                    item.setTitle("Imperial Units")
+
+                } else {
+                    units = "metric"
+                    item.setIcon(R.drawable.unit_metric)
+                    item.setTitle("Metric Units")
+                }
+                allSavedLocations()
+
+                super.onOptionsItemSelected(item)
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
 }
 

@@ -1,10 +1,8 @@
 package com.example.weatherapp.ui.currentlocation
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.weatherapp.*
@@ -23,6 +21,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_current_location.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -39,6 +38,8 @@ class CurrentLocationFragment : Fragment() {
     private val weatherApiKey = BuildConfig.WEATHER_KEY
     private val openCageDataKey = BuildConfig.OPENCAGE_KEY
     var units = "metric"  //imperial
+    var latitude = ""
+    var longitude = ""
 
     lateinit  var autocompleteFragment: AutocompleteSupportFragment
 
@@ -49,6 +50,7 @@ class CurrentLocationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        setHasOptionsMenu(true)
         val intr = RetroApiInterface.create()
         val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
         val repo = WeatherRepository(intr, dao)
@@ -63,8 +65,8 @@ class CurrentLocationFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext={
-                    var latitude = it.location.lat.toString()
-                    var longitude = it.location.lng.toString()
+                    latitude = it.location.lat.toString()
+                    longitude = it.location.lng.toString()
                     getCurrentWeather(latitude, longitude)
                     getCurrentCity(latitude, longitude)
                 },
@@ -82,8 +84,8 @@ class CurrentLocationFragment : Fragment() {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                var latitude = place.latLng?.latitude.toString()
-                var longitude = place.latLng?.longitude.toString()
+                latitude = place.latLng?.latitude.toString()
+                longitude = place.latLng?.longitude.toString()
                 getCurrentWeather(latitude, longitude)
                 autocompleteFragment.setHint(place.address)
             }
@@ -204,5 +206,32 @@ class CurrentLocationFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.action_menu, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.degreeUnit -> {
+                if (units == "metric") {
+                    units = "imperial"
+                    item.setIcon(R.drawable.unit_imperial)
+                    item.setTitle("Imperial Units")
+
+                } else {
+                    units = "metric"
+                    item.setIcon(R.drawable.unit_metric)
+                    item.setTitle("Metric Units")
+                }
+                getCurrentWeather(latitude,longitude)
+
+                super.onOptionsItemSelected(item)
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
 }

@@ -3,13 +3,12 @@ package com.example.weatherapp.ui.weekly
 
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapp.R
 import com.example.weatherapp.data.APIResponse.Daily
 import com.example.weatherapp.databinding.FragmentWeeklyBinding
 import java.text.SimpleDateFormat
@@ -33,6 +32,7 @@ class WeeklyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        setHasOptionsMenu(true)
         _binding = FragmentWeeklyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -62,4 +62,9 @@ class WeeklyFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+    }
+
 }
