@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        supportActionBar!!.title = "Weather App"
+
+        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentLocation, "3").hide(fragmentLocation).commit()
+        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentWeekly, "2").hide(fragmentWeekly).commit()
+        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentCurrentLocation, "1").commit()
+
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
@@ -49,11 +55,6 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
-        supportActionBar!!.title = "Weather App"
-
-        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentLocation, "3").hide(fragmentLocation).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentWeekly, "2").hide(fragmentWeekly).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentCurrentLocation, "1").commit()
 
 
         val navView: BottomNavigationView = binding.bottomNav

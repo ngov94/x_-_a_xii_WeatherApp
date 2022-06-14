@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/drawable/thunderstrom_bg.xml" value="0.1235" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1969111969111969" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.29025641025641025" />
+        <entry key="app/src/main/res/layout/fragment_current_location.xml" value="0.1" />
       </map>
     </option>
   </component>

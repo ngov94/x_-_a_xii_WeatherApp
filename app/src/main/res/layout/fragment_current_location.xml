@@ -226,7 +226,7 @@
                                  android:id="@+id/metric_one"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
-                                 android:text="F°"
+                                 android:text="°"
                                  android:textSize="18dp"
                                  app:layout_constraintLeft_toLeftOf="parent"/>
                          </LinearLayout>
@@ -267,7 +267,7 @@
                                  android:id="@+id/metric_two"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
-                                 android:text="F°"
+                                 android:text="°"
                                  android:textSize="18dp"
                                  app:layout_constraintLeft_toLeftOf="parent"/>
                          </LinearLayout>
@@ -308,7 +308,7 @@
                                  android:id="@+id/metric_three"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
-                                 android:text="F°"
+                                 android:text="°"
                                  android:textSize="18dp"
                                  app:layout_constraintLeft_toLeftOf="parent"/>
                          </LinearLayout>
@@ -349,7 +349,7 @@
                                  android:id="@+id/metric_four"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
-                                 android:text="F°"
+                                 android:text="°"
                                  android:textSize="18dp"
                                  app:layout_constraintLeft_toLeftOf="parent"/>
                          </LinearLayout>
@@ -390,299 +390,12 @@
                                  android:id="@+id/metric_five"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
-                                 android:text="F°"
+                                 android:text="°"
                                  android:textSize="18dp"
                                  app:layout_constraintLeft_toLeftOf="parent"/>
                          </LinearLayout>
                          <TextView
                              android:id="@+id/time_five"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_six"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_six"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_six"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_six"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_seven"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_seven"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_seven"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_seven"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_eight"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_eight"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_eight"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_eight"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_nine"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_nine"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_nine"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_nine"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_ten"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_ten"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_ten"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_ten"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_eleven"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_eleven"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_eleven"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_eleven"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:fontFamily="@font/google_sans_regular"
-                             android:text="12:34PM"/>
-                     </LinearLayout>
-                     <LinearLayout
-                         android:layout_width="100dp"
-                         android:layout_height="180dp"
-                         android:background="@drawable/light_translucent_bubble"
-                         android:layout_margin="10dp"
-                         android:gravity="center"
-                         android:orientation="vertical">
-
-                         <ImageView
-                             android:id="@+id/hourly_icon_twelve"
-                             android:layout_width="50dp"
-                             android:layout_height="50dp"
-                             android:src="@drawable/w_clear_sky_day"
-                             />
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content">
-
-                             <TextView
-                                 android:id="@+id/temp_twelve"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="80"
-                                 android:textSize="18dp"
-                                 android:fontFamily="@font/google_sans_bold"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                             <TextView
-                                 android:id="@+id/metric_twelve"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="F°"
-                                 android:textSize="18dp"
-                                 app:layout_constraintLeft_toLeftOf="parent"/>
-                         </LinearLayout>
-                         <TextView
-                             android:id="@+id/time_twelve"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:fontFamily="@font/google_sans_regular"

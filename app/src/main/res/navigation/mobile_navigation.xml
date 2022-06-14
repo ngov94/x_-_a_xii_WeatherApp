@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/currentlocationFragment2"
         android:name="com.example.weatherapp.ui.currentlocation.CurrentLocationFragment"
-        android:label="fragment_current_location"
+        android:label="Weather App"
         tools:layout="@layout/fragment_current_location" />
     <fragment
         android:id="@+id/locationsFragment2"
         android:name="com.example.weatherapp.ui.locations.LocationsFragment"
-        android:label="activity_locations_fragment"
+        android:label="Weather App"
         tools:layout="@layout/activity_locations_fragment" />
     <fragment
         android:id="@+id/weeklyFragment2"
         android:name="com.example.weatherapp.ui.weekly.WeeklyFragment"
-        android:label="fragment_weekly"
+        android:label="Weather App"
         tools:layout="@layout/fragment_weekly" />
 </navigation>
