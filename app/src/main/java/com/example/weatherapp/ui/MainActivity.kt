@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
                     content.viewTreeObserver.removeOnPreDrawListener(this)
-                    Thread.sleep(2500)
+                    Thread.sleep(1500)
                     return false
                 }
             }

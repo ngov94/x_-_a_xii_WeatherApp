@@ -32,12 +32,12 @@ class CurrentLocationFragment : Fragment() {
     private var _binding: FragmentCurrentLocationBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var placesClient: PlacesClient
-    lateinit var currentLocationViewModel: WeatherViewModel
+    private lateinit var placesClient: PlacesClient
+    private lateinit var currentLocationViewModel: WeatherViewModel
 
-    val googleApi = BuildConfig.GOOGLE_KEY // Google Cloud API
-    val weatherApiKey = BuildConfig.WEATHER_KEY
-    val openCageDataKey = BuildConfig.OPENCAGE_KEY
+    private val googleApi = BuildConfig.GOOGLE_KEY // Google Cloud API
+    private val weatherApiKey = BuildConfig.WEATHER_KEY
+    private val openCageDataKey = BuildConfig.OPENCAGE_KEY
     var units = "metric"  //imperial
 
     lateinit  var autocompleteFragment: AutocompleteSupportFragment
@@ -57,13 +57,7 @@ class CurrentLocationFragment : Fragment() {
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
         autocompleteFragment = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
-
-        //TODO : update current_degree_metric along with calculations
-        //TODO : several gradients depending on weather
-        //Geolocation is just lat and long.
         currentLocationViewModel.getGeoloaction(googleApi)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -88,13 +82,9 @@ class CurrentLocationFragment : Fragment() {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                // TODO: Get info about the selected place.
-                println("Place: ${place.address}, ${place.latLng}")
-                //binding.tvCityName.text = place.address TODO : Please insert this text into the searchbar // searchViewID.setQuery(searchToken, false);
                 var latitude = place.latLng?.latitude.toString()
                 var longitude = place.latLng?.longitude.toString()
                 getCurrentWeather(latitude, longitude)
-//                currentLocationViewModel.getCurrentWeather(latitude, longitude, weatherApiKey, units)
                 autocompleteFragment.setHint(place.address)
             }
 
