@@ -24,9 +24,9 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-    val fragmentCurrentLocation = CurrentLocationFragment()
-    val fragmentWeekly = WeeklyFragment()
-    val fragmentLocation = LocationsFragment()
+    private val fragmentCurrentLocation = CurrentLocationFragment()
+    private val fragmentWeekly = WeeklyFragment()
+    private val fragmentLocation = LocationsFragment()
     val fm: FragmentManager = supportFragmentManager
     var active: Fragment = fragmentCurrentLocation
 
