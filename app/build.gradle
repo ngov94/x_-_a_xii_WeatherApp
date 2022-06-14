@@ -28,7 +28,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_KEY", localProperties['googleApi']
-        buildConfigField "String", "WEATHER_KEY", localProperties['weatherApiKey1']
+        buildConfigField "String", "WEATHER_KEY", localProperties['weatherApiKey3']
         buildConfigField "String", "OPENCAGE_KEY", localProperties['openCageDataKey']
 
     }
