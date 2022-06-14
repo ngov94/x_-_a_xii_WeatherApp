@@ -28,7 +28,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_KEY", localProperties['googleApi']
-        buildConfigField "String", "WEATHER_KEY", localProperties['weatherApiKey1']
+        buildConfigField "String", "WEATHER_KEY", localProperties['weatherApiKey2']
         buildConfigField "String", "OPENCAGE_KEY", localProperties['openCageDataKey']
 
     }
@@ -82,8 +82,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 //    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
 //    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
 
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
