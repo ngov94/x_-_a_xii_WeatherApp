@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
-import com.example.weatherapp.APIResponse.Daily
+import com.example.weatherapp.data.APIResponse.Daily
 import com.example.weatherapp.R
 import java.text.SimpleDateFormat
 import java.util.*

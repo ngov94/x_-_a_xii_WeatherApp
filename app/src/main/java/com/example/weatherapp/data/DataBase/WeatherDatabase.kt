@@ -1,10 +1,9 @@
-package com.example.weatherapp.DataBase
+package com.example.weatherapp.data.DataBase
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.weatherapp.ui.currentlocation.CurrentLocationFragment
 
 
 @Database(entities = [AllWeatherEntity::class, CityLatLong::class, PlaceName::class, FavLocations::class], version = 4, exportSchema = false)

@@ -1,17 +1,11 @@
 package com.example.weatherapp.ui.locations
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.APIResponse.LocationWeather
-import com.example.weatherapp.DataBase.FavLocations
-import com.example.weatherapp.WeatherRepository
+import com.example.weatherapp.data.APIResponse.AllWeather
+import com.example.weatherapp.data.DataBase.FavLocations
+import com.example.weatherapp.data.WeatherRepository
 import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
 

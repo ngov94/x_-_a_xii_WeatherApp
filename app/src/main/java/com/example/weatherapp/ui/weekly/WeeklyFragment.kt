@@ -6,23 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherapp.APIResponse.Daily
-import com.example.weatherapp.DataBase.WeatherDatabase
-import com.example.weatherapp.R
-import com.example.weatherapp.RetroApiInterface
-import com.example.weatherapp.WeatherRepository
-import com.example.weatherapp.WeatherViewModel
+import com.example.weatherapp.data.APIResponse.Daily
 import com.example.weatherapp.databinding.FragmentWeeklyBinding
 import java.text.SimpleDateFormat
-import java.time.ZoneId
-import java.util.*
 import kotlin.collections.ArrayList
 
 

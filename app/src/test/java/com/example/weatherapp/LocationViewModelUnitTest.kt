@@ -1,20 +1,17 @@
 package com.example.weatherapp
 
 
-import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.DataBase.FavLocations
-import com.example.weatherapp.DataBase.WeatherDao
+import com.example.weatherapp.data.APIResponse.AllWeather
+import com.example.weatherapp.data.DataBase.WeatherDao
+import com.example.weatherapp.data.RetroApiInterface
+import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.ui.locations.LocationViewModel
-import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import retrofit2.Response
 
 @RunWith(JUnit4::class)
 class LocationViewModelUnitTest {

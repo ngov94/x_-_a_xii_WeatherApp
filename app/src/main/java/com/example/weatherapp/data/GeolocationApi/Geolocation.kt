@@ -1,4 +1,4 @@
-package com.example.weatherapp.GeolocationApi
+package com.example.weatherapp.data.GeolocationApi
 
 
 data class Geolocation(

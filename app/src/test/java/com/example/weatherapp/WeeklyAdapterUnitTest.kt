@@ -1,9 +1,9 @@
 package com.example.weatherapp
 
-import com.example.weatherapp.APIResponse.Daily
-import com.example.weatherapp.APIResponse.FeelsLike
-import com.example.weatherapp.APIResponse.Temp
-import com.example.weatherapp.APIResponse.Weather
+import com.example.weatherapp.data.APIResponse.Daily
+import com.example.weatherapp.data.APIResponse.FeelsLike
+import com.example.weatherapp.data.APIResponse.Temp
+import com.example.weatherapp.data.APIResponse.Weather
 import com.example.weatherapp.ui.weekly.WeeklyAdapter
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
@@ -21,12 +21,14 @@ class WeeklyAdapterUnitTest {
     @Before
     fun setup(){
         MockitoAnnotations.openMocks(this)
-        fakeDailyList = listOf(Daily(1,1.1,1, FeelsLike(1.1,
+        fakeDailyList = listOf(
+            Daily(1,1.1,1, FeelsLike(1.1,
             1.1,1.1,1.1), 1, 1.1, 1, 1.1, 1,
             1, Temp(1.1,1.1,1.1,1.1,1.1,1.1), 1.1,
             listOf(Weather("Sunny", "04d",1,"sunny")), 2,
             2.2, 2.2
-        ))
+        )
+        )
         adapter = WeeklyAdapter(fakeDailyList)
     }
 

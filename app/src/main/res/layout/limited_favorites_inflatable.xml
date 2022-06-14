@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/google_sans_regular"
                         android:text="20%"
-                        android:textSize="27sp"
+                        android:textSize="20sp"
                         app:layout_constraintTop_toBottomOf="@id/fav_item_mintemp"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/fav_item_droplet"

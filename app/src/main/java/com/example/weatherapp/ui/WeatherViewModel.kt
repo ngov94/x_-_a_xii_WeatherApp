@@ -1,22 +1,13 @@
-package com.example.weatherapp
+package com.example.weatherapp.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.APIResponse.LocationWeather
-import com.example.weatherapp.DataBase.AllWeatherEntity
-import com.example.weatherapp.DataBase.CityLatLong
-import com.example.weatherapp.DataBase.FavLocations
-import com.example.weatherapp.DataBase.PlaceName
-import com.example.weatherapp.GeolocationApi.Geolocation
-import com.example.weatherapp.ReverseGeocoding.CurrentCity
+import com.example.weatherapp.data.APIResponse.AllWeather
+import com.example.weatherapp.data.DataBase.AllWeatherEntity
+import com.example.weatherapp.data.DataBase.CityLatLong
+import com.example.weatherapp.data.GeolocationApi.Geolocation
+import com.example.weatherapp.data.WeatherRepository
 import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
 

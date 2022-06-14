@@ -1,10 +1,9 @@
-package com.example.weatherapp
+package com.example.weatherapp.data
 
-import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.GeolocationApi.Geolocation
-import com.example.weatherapp.ReverseGeocoding.CurrentCity
+import com.example.weatherapp.data.APIResponse.AllWeather
+import com.example.weatherapp.data.GeolocationApi.Geolocation
+import com.example.weatherapp.data.ReverseGeocoding.CurrentCity
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

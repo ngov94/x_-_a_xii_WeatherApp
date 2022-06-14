@@ -1,18 +1,18 @@
 package com.example.weatherapp.ui.currentlocation
 
-import android.app.ActionBar
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.example.weatherapp.*
-import com.example.weatherapp.DataBase.WeatherDatabase
+import com.example.weatherapp.data.DataBase.WeatherDatabase
+import com.example.weatherapp.data.RetroApiInterface
+import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
+import com.example.weatherapp.ui.WeatherViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -20,7 +20,6 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.gson.GsonBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -79,8 +78,8 @@ class CurrentLocationFragment : Fragment() {
             )
 
 //<----Codes for Google autocomplete Fragment. More here: https://developers.google.cn/maps/documentation/places/android-sdk/autocomplete--->
-        Places.initialize(context!!, googleApi)
-        placesClient = Places.createClient(context!!)
+        Places.initialize(requireContext(), googleApi)
+        placesClient = Places.createClient(requireContext())
         // Initialize the AutocompleteSupportFragment.
         autocompleteFragment.setTypeFilter(TypeFilter.CITIES)
         // Specify the types of place data to return.

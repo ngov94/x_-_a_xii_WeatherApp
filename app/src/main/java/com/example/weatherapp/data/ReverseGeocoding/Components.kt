@@ -1,4 +1,4 @@
-package com.example.weatherapp.ReverseGeocoding
+package com.example.weatherapp.data.ReverseGeocoding
 
 
 import com.google.gson.annotations.SerializedName

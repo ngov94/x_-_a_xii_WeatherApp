@@ -1,10 +1,7 @@
-package com.example.weatherapp
+package com.example.weatherapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.DataBase.*
-import retrofit2.Response
+import com.example.weatherapp.data.DataBase.*
 
 
 class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDao) {

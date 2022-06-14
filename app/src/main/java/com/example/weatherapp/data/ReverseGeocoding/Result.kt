@@ -1,4 +1,4 @@
-package com.example.weatherapp.ReverseGeocoding
+package com.example.weatherapp.data.ReverseGeocoding
 
 
 data class Result(

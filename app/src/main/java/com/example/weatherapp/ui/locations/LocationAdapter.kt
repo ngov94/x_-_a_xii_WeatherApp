@@ -6,12 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.APIResponse.AllWeather
-import com.example.weatherapp.APIResponse.Daily
-import com.example.weatherapp.APIResponse.LocationWeather
+import com.example.weatherapp.data.APIResponse.LocationWeather
 import com.example.weatherapp.R
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.math.roundToInt
 
 class LocationAdapter(private val locationList: List<LocationWeather>) : RecyclerView.Adapter<ViewHolder>(){

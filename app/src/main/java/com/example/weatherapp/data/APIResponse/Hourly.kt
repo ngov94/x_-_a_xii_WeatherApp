@@ -1,23 +1,22 @@
-package com.example.weatherapp.APIResponse
+package com.example.weatherapp.data.APIResponse
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Daily(
+data class Hourly(
     val clouds: Int,
     @SerializedName("dew_point")
     val dewPoint: Double,
     val dt: Int,
     @SerializedName("feels_like")
-    val feelsLike: FeelsLike,
+    val feelsLike: Double,
     val humidity: Int,
     val pop: Double,
     val pressure: Int,
-    val rain: Double,
-    val sunrise: Int,
-    val sunset: Int,
-    val temp: Temp,
+    val rain: Rain,
+    val temp: Double,
     val uvi: Double,
+    val visibility: Int,
     val weather: List<Weather>,
     @SerializedName("wind_deg")
     val windDeg: Int,

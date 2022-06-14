@@ -1,11 +1,13 @@
-package com.example.weatherapp.APIResponse
+package com.example.weatherapp.data.APIResponse
 
 
 import com.google.gson.annotations.SerializedName
 
-data class FeelsLike(
+data class Temp(
     val day: Double,
     val eve: Double,
+    val max: Double,
+    val min: Double,
     val morn: Double,
     val night: Double
 )

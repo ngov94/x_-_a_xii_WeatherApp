@@ -1,4 +1,4 @@
-package com.example.weatherapp
+package com.example.weatherapp.ui
 
 
 import android.os.Bundle
@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.ui.currentlocation.CurrentLocationFragment
 import com.example.weatherapp.ui.locations.LocationsFragment
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.currentlocationFragment2, R.id.weeklyFragment2,  R.id.locationsFragment2
+                R.id.currentlocationFragment2, R.id.weeklyFragment2, R.id.locationsFragment2
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
