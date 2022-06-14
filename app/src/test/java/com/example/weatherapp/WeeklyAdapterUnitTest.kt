@@ -21,14 +21,12 @@ class WeeklyAdapterUnitTest {
     @Before
     fun setup(){
         MockitoAnnotations.openMocks(this)
-        fakeDailyList = listOf(
-            Daily(1,1.1,1, FeelsLike(1.1,
+        fakeDailyList = listOf(Daily(1,1.1,1, FeelsLike(1.1,
             1.1,1.1,1.1), 1, 1.1, 1, 1.1, 1,
             1, Temp(1.1,1.1,1.1,1.1,1.1,1.1), 1.1,
             listOf(Weather("Sunny", "04d",1,"sunny")), 2,
             2.2, 2.2
-        )
-        )
+        ))
         adapter = WeeklyAdapter(fakeDailyList)
     }
 

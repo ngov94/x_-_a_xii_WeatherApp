@@ -1,9 +1,9 @@
 package com.example.weatherapp
 
-
 import com.example.weatherapp.data.APIResponse.*
 import com.example.weatherapp.data.DataBase.FavLocations
 import com.example.weatherapp.ui.locations.LocationAdapter
+import com.example.weatherapp.ui.weekly.WeeklyAdapter
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test

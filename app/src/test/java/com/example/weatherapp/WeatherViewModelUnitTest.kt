@@ -24,43 +24,39 @@ import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
 class WeatherViewModelUnitTest {
-    lateinit var repo: WeatherRepository
-    lateinit var vm: WeatherViewModel
+     lateinit var repo: WeatherRepository
+     lateinit var vm: WeatherViewModel
 
-    @Mock
-    lateinit var inter: RetroApiInterface
+     @Mock
+     lateinit var inter: RetroApiInterface
 
-    @Mock
-    lateinit var dao: WeatherDao
+     @Mock
+     lateinit var dao: WeatherDao
 
-    @Before
-    fun setup(){
-        MockitoAnnotations.openMocks(this)
-        repo = WeatherRepository(inter, dao)
-        vm = WeatherViewModel(repo)
-    }
+     @Before
+     fun setup(){
+         MockitoAnnotations.openMocks(this)
+         repo = WeatherRepository(inter, dao)
+         vm = WeatherViewModel(repo)
+     }
 
     @Test
     fun getCurrentWeatherTest(){
         runBlocking {
-            val fakeWeather = AllWeather(listOf(
-                Alert("Fire in Woods", 2,"Fire",
-                "Jessica",1,listOf("fire","danger"))
-            ),
+            val fakeWeather = AllWeather(listOf(Alert("Fire in Woods", 2,"Fire",
+            "Jessica",1,listOf("fire","danger"))),
                 (Current(1,2.2,2,2.2,
-                    2,2,2,2,2.2,2.2,2,
-                    listOf(Weather("Cloudy", "04d", 1, "cloudy")), 2,
-                    2.2)),
-                listOf(
-                    Daily(2,2.2,2, FeelsLike(2.2,2.2,2.2,2.2),
-                    2,2.2,2,2.2,2,2,Temp(2.2,2.2,2.2,
-                        2.2,2.2,2.2),2.2,listOf(Weather("Cloudy",
-                        "04d", 2,"cloudy")),2,2.2,2.2)
-                ),
+                2,2,2,2,2.2,2.2,2,
+                 listOf(Weather("Cloudy", "04d", 1, "cloudy")), 2,
+                 2.2)),
+                 listOf(Daily(2,2.2,2, FeelsLike(2.2,2.2,2.2,2.2),
+                 2,2.2,2,2.2,2,2,Temp(2.2,2.2,2.2,
+                    2.2,2.2,2.2),2.2,listOf(Weather("Cloudy",
+                "04d", 2,"cloudy")),2,2.2,2.2)),
                 listOf(Hourly(2,2.2,2,2.2,2,2.2,2,
-                    Rain(2.2),2.2,2.2,2,
-                    listOf(Weather("Cloudy", "04d", 1, "cloudy")),2,
-                    2.2,2.2)),2.2,2.2,
+                Rain(2.2),2.2,2.2,2,
+                listOf(Weather("Cloudy", "04d", 1, "cloudy")),2,
+                2.2,2.2)),2.2,2.2,
                 listOf(Minutely(2,2.2)),"PST",12345)
             Mockito.`when`(repo.getCurrentWeather("0","0","0","0"))
                 .thenReturn(Observable.just(fakeWeather))
@@ -100,10 +96,8 @@ class WeatherViewModelUnitTest {
     @Test
     fun getCurrentCityTest(){
         runBlocking {
-            val fakeCurrentCity = CurrentCity(listOf(Result(
-                Components(
-                "LA","USA", "USA", "LA","CA")
-            )))
+            val fakeCurrentCity = CurrentCity(listOf(Result(Components(
+                "LA","USA", "USA", "LA","CA"))))
 
             Mockito.`when`(repo.getCurrentCity("70, 70","0"))
                 .thenReturn(Observable.just(fakeCurrentCity))
@@ -120,16 +114,5 @@ class WeatherViewModelUnitTest {
         }
     }
 
-    @Test
-    fun getPlaceNameTest(){
-        val fakePlaceName : PlaceName = PlaceName("Los Angeles")
-
-        Mockito.`when`(repo.getPlaceName())
-            .thenReturn(fakePlaceName)
-
-        val result = vm.getPlaceName()
-
-        assertEquals(fakePlaceName, result)
-    }
 
 }
