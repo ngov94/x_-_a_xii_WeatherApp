@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 class LocationViewModel(val repo: WeatherRepository) : ViewModel() {
 
     val favLocationsList : LiveData<List<FavLocations>>
-    val favLocationWeatherList = MutableLiveData<List<LocationWeather>>()
 
 
     init {

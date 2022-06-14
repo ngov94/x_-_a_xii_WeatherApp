@@ -19,19 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "This is current location Fragment"
-//    }
-//    val text: LiveData<String> = _text
-
-    var currentWeather = MutableLiveData<AllWeather>()
-    var currentLocation = MutableLiveData<Geolocation>()
-    var currentCity = MutableLiveData<CurrentCity>()
 
     val getAllWeather : LiveData<AllWeatherEntity>
     val getLatLong : LiveData<CityLatLong>
-
-
 
     init {
         getAllWeather = repo.getAllWeather()
@@ -39,10 +29,6 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
 
 
     }
-
-//    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
-//        throwable.printStackTrace()
-//    }
 
 
     fun getCurrentWeather(
@@ -54,33 +40,13 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
         return repo.getCurrentWeather(latitude, longitude, apiKey, unit)
     }
 
-
     fun getGeoloaction(googleApi: String): Observable<Geolocation> {
         return repo.getGeoloaction(googleApi)
     }
 
-
     fun getCurrentCity(latLng: String, cagedDataKey: String) = repo.getCurrentCity(latLng, cagedDataKey)
 
-
-    fun insertWeather(weather: AllWeatherEntity) = viewModelScope.launch{
-        repo.insertWeather(weather)
-    }
-
-
-    fun insertLatLong(cityLatLong: CityLatLong) = viewModelScope.launch {
-        repo.insertLatLong(cityLatLong)
-    }
-
-
     fun getPlaceName() = repo.getPlaceName()
-
-
-
-    fun insertPlaceName(placeName: PlaceName) = viewModelScope.launch {
-        repo.insertPlaceName(placeName)
-    }
-
 
 
 

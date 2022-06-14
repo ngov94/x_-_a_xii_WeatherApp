@@ -10,11 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.example.weatherapp.WeatherViewModel
+import com.example.weatherapp.*
 import com.example.weatherapp.DataBase.WeatherDatabase
-import com.example.weatherapp.R
-import com.example.weatherapp.RetroApiInterface
-import com.example.weatherapp.WeatherRepository
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -39,10 +36,9 @@ class CurrentLocationFragment : Fragment() {
     lateinit var placesClient: PlacesClient
     lateinit var currentLocationViewModel: WeatherViewModel
 
-    val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs" // Google Cloud API
-    val weatherApiKey = "d911015e54f48d2bf96b5dcaef433a6a"
-//    val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"    // Open Weather API
-    val openCageDataKey = "8eb888cd6f6142ee9203998161b2eb7c"  // OpenCage Geocoding API
+    val googleApi = BuildConfig.GOOGLE_KEY // Google Cloud API
+    val weatherApiKey = BuildConfig.WEATHER_KEY
+    val openCageDataKey = BuildConfig.OPENCAGE_KEY
     var units = "metric"  //imperial
 
     lateinit  var autocompleteFragment: AutocompleteSupportFragment
@@ -108,12 +104,6 @@ class CurrentLocationFragment : Fragment() {
             }
         })
 //        <---End of Codes for Google autocomplete Fragment --->
-
-
-        //changes metric when view is clicked
-        //binding.metric_change_button.setOnClickListener {} TODO : Please set an on-click listener to change the metric (Fahrenheit - Celcius)
-
-
         return root
     }
 
@@ -148,11 +138,7 @@ class CurrentLocationFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext ={
-                    val gson = GsonBuilder().setPrettyPrinting().create()
-                    val pJson = gson.toJson(it)
-//          println(pJson)
 
-                    // Weather data
                     binding.currentDate.text = SimpleDateFormat("MMM dd").format(it.current.dt.toLong()*1000).toString()
                     binding.currentTime.text = SimpleDateFormat("h:mm a").format(it.current.dt.toLong()*1000).toString()
 

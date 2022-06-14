@@ -21,7 +21,6 @@ interface RetroApiInterface {
         @Query("lon") longitude: String,
         @Query("appid") apikey: String,
         @Query("units") unit: String,
-//        @Query("exclude") exclude:String = "minutely,hourly,alerts"
     ): Observable<AllWeather>
 
     @POST("https://www.googleapis.com/geolocation/v1/geolocate")
@@ -37,7 +36,6 @@ interface RetroApiInterface {
     ): Observable<CurrentCity>
 
 
-    /// https://api.openweathermap.org/data/2.5/weather?lat=43.452969&lon=-80.495064&appid=2969a813a03aab47497e1da3a8cf1a81
     companion object {
         var BASE_URL = "https://api.openweathermap.org/data/3.0/"
         fun create(): RetroApiInterface {

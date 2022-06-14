@@ -16,15 +16,12 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapp.*
 import com.example.weatherapp.APIResponse.AllWeather
 import com.example.weatherapp.APIResponse.LocationWeather
 import com.example.weatherapp.DataBase.FavLocations
 import com.example.weatherapp.DataBase.PlaceName
 import com.example.weatherapp.DataBase.WeatherDatabase
-import com.example.weatherapp.R
-import com.example.weatherapp.RetroApiInterface
-import com.example.weatherapp.WeatherRepository
-import com.example.weatherapp.WeatherViewModel
 import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -65,9 +62,8 @@ class LocationsFragment : Fragment() {
         val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
         val repo = WeatherRepository(intr, dao)
         locationViewModel = LocationViewModel(repo)
-        val googleApi = "AIzaSyAiANxOSE30Kd-izZbZ4PnYIGo6ROppsMs"
-//        val weatherApiKey = "863e72223d279e955d713a9437a9e6ce"
-        val weatherApiKey = "d911015e54f48d2bf96b5dcaef433a6a"
+        val googleApi = BuildConfig.GOOGLE_KEY // Google Cloud API
+        val weatherApiKey = BuildConfig.WEATHER_KEY
         var unit = "metric"
 
 

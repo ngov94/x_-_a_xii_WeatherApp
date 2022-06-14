@@ -30,8 +30,6 @@ class WeeklyFragment : Fragment() {
 
     private var _binding: FragmentWeeklyBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     val weeklyList = ArrayList<Daily>()
@@ -48,14 +46,6 @@ class WeeklyFragment : Fragment() {
         _binding = FragmentWeeklyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        //Date Range
-//        var dateNow = SimpleDateFormat("MMMM d").format(Date())
-//
-//        var localnow = Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-//        var localWeek = Date.from(localnow.plusDays(7).atStartOfDay(ZoneId.systemDefault()).toInstant())
-//        var dateWeekfromNow = SimpleDateFormat("MMMM d").format(localWeek)
-//
-//        binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
 
         // Weekly Recycler View
         binding.futureRecycler.adapter = adapter

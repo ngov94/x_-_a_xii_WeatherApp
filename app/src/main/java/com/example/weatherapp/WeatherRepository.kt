@@ -32,16 +32,9 @@ class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDa
         return dao.getLatLong()
     }
 
-    fun insertLatLong(cityLatLong: CityLatLong) {
-        return dao.insertLatLong(cityLatLong)
-    }
 
     fun getPlaceName(): PlaceName {
         return dao.getPlaceName()
-    }
-
-    fun insertPlaceName(placeName: PlaceName) {
-        return dao.insertPlaceName(placeName)
     }
 
     // For Fav Locations

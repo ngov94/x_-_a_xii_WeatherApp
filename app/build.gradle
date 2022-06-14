@@ -20,12 +20,17 @@ android {
 
     defaultConfig {
         applicationId "com.example.weatherapp"
-        minSdk 24
+        minSdk 31
         targetSdk 32
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "GOOGLE_KEY", localProperties['googleApi']
+        buildConfigField "String", "WEATHER_KEY", localProperties['weatherApiKey1']
+        buildConfigField "String", "OPENCAGE_KEY", localProperties['openCageDataKey']
+
     }
 
     buildTypes {
