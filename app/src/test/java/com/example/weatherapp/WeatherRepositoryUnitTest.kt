@@ -22,8 +22,8 @@ import com.example.weatherapp.data.RetroApiInterface
 import com.example.weatherapp.data.WeatherRepository
 import junit.framework.TestCase
 
-@RunWith(JUnit4::class)
-class WeatherRepositoryUnitTest : TestCase() {
+//@RunWith(JUnit4::class)
+class WeatherRepositoryUnitTest  {
 
 //    lateinit var repo: WeatherRepository
 //

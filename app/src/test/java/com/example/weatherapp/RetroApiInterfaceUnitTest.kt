@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@RunWith(JUnit4::class)
+//@RunWith(JUnit4::class)
 class RetroApiInterfaceUnitTest {
 
 //    lateinit var inter: RetroApiInterface
