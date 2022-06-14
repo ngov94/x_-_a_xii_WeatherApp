@@ -432,72 +432,6 @@
                      android:columnCount="2"
                      android:paddingBottom="80dp">
 
-
-                     <TextView
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:textSize="18dp"
-                         android:layout_height="wrap_content"
-                         android:text="Humidity"/>
-                     <TextView
-                         android:id="@+id/current_humidity"
-                         android:layout_width="0dp"
-                         android:textSize="18dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="%57"/>
-                     <TextView
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:textSize="18dp"
-                         android:layout_height="wrap_content"
-                         android:text="Dew Point"/>
-                     <TextView
-                         android:id="@+id/current_dew_point"
-                         android:layout_width="0dp"
-                         android:textSize="18dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="59°F"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="Pressure"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:id="@+id/current_pressure"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="30inHg"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="UV Index"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:id="@+id/current_uv_index"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="Low, 0"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="Visibility"/>
-                     <TextView
-                         android:textSize="18dp"
-                         android:id="@+id/current_visibility"
-                         android:layout_width="0dp"
-                         android:layout_columnWeight="1"
-                         android:layout_height="wrap_content"
-                         android:text="9mi"/>
                      <TextView
                          android:textSize="18dp"
                          android:layout_width="0dp"
@@ -537,6 +471,72 @@
                          android:layout_columnWeight="1"
                          android:layout_height="wrap_content"
                          android:text="55°"/>
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:textSize="18dp"
+                         android:layout_height="wrap_content"
+                         android:text="Humidity"/>
+                     <TextView
+                         android:id="@+id/current_humidity"
+                         android:layout_width="0dp"
+                         android:textSize="18dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="57%"/>
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:textSize="18dp"
+                         android:layout_height="wrap_content"
+                         android:text="Dew Point"/>
+                     <TextView
+                         android:id="@+id/current_dew_point"
+                         android:layout_width="0dp"
+                         android:textSize="18dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="59°F"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="Pressure"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:id="@+id/current_pressure"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="30 hPa"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="UV Index"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:id="@+id/current_uv_index"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="Low, 0"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="Visibility"/>
+                     <TextView
+                         android:textSize="18dp"
+                         android:id="@+id/current_visibility"
+                         android:layout_width="0dp"
+                         android:layout_columnWeight="1"
+                         android:layout_height="wrap_content"
+                         android:text="9mi"/>
+
 
                  </GridLayout>
 
