@@ -1,7 +1,6 @@
 package com.example.weatherapp
 
 import com.example.weatherapp.data.APIResponse.*
-import com.example.weatherapp.data.DataBase.PlaceName
 import com.example.weatherapp.data.DataBase.WeatherDao
 import com.example.weatherapp.data.GeolocationApi.Geolocation
 import com.example.weatherapp.data.GeolocationApi.Location

@@ -3,23 +3,11 @@ package com.example.weatherapp.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.data.APIResponse.AllWeather
-import com.example.weatherapp.data.DataBase.AllWeatherEntity
-import com.example.weatherapp.data.DataBase.CityLatLong
 import com.example.weatherapp.data.GeolocationApi.Geolocation
 import com.example.weatherapp.data.WeatherRepository
 import io.reactivex.rxjava3.core.Observable
 
 class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
-
-    val getAllWeather : LiveData<AllWeatherEntity>
-    val getLatLong : LiveData<CityLatLong>
-
-    init {
-        getAllWeather = repo.getAllWeather()
-        getLatLong = repo.getLatLong()
-
-
-    }
 
 
     fun getCurrentWeather(
@@ -37,7 +25,6 @@ class WeatherViewModel(val repo: WeatherRepository) : ViewModel() {
 
     fun getCurrentCity(latLng: String, cagedDataKey: String) = repo.getCurrentCity(latLng, cagedDataKey)
 
-    fun getPlaceName() = repo.getPlaceName()
 
 
 

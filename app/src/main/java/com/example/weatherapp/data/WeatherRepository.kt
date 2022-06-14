@@ -17,23 +17,6 @@ class WeatherRepository(val inter: RetroApiInterface, private val dao: WeatherDa
 
     fun getCurrentCity(latLng:String, cagedDataKey:String) = inter.getCurrentCity(latLng, cagedDataKey)
 
-    fun getAllWeather(): LiveData<AllWeatherEntity> {
-        return dao.getAllWeather()
-    }
-
-    fun insertWeather(weather: AllWeatherEntity) {
-        return dao.insertWeather(weather)
-    }
-
-    fun getLatLong(): LiveData<CityLatLong> {
-        return dao.getLatLong()
-    }
-
-
-    fun getPlaceName(): PlaceName {
-        return dao.getPlaceName()
-    }
-
     // For Fav Locations
     fun getFavLocationsList():LiveData<List<FavLocations>>{
         return dao.getFavLocationsList()
