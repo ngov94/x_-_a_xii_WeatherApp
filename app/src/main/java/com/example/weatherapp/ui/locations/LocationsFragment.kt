@@ -127,8 +127,6 @@ class LocationsFragment : Fragment() {
                                 longitude = longitude
                             )
                         )
-
-                        Log.i(TAG, "Place: ${place.name}, ${place.id}")
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
@@ -147,7 +145,7 @@ class LocationsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun allSavedLocations() {
+    private fun allSavedLocations() {
         locationViewModel.favLocationsList.observe(viewLifecycleOwner) {
             locationWeather.clear()
             for (loc in it) {

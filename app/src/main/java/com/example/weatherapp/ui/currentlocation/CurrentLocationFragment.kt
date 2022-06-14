@@ -98,7 +98,7 @@ class CurrentLocationFragment : Fragment() {
         return root
     }
 
-    fun setIcon(icon: String): Int{
+    private fun setIcon(icon: String): Int{
         var iconNumber = when (icon){
             "01d" -> R.drawable.w_clear_sky_day
             "01n" -> R.drawable.w_clear_sky_night
@@ -185,7 +185,7 @@ class CurrentLocationFragment : Fragment() {
             )
     }
 
-    fun getCurrentCity(latitude: String, longitude:String){
+    private fun getCurrentCity(latitude: String, longitude:String){
         currentLocationViewModel.getCurrentCity("$latitude+$longitude", openCageDataKey)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
