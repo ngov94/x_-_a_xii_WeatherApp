@@ -29,6 +29,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.limited_favorites_inflatable.view.*
+import kotlin.math.roundToInt
 
 
 class LocationsFragment : Fragment() {
@@ -77,8 +78,38 @@ class LocationsFragment : Fragment() {
         }
 //        <---End of Codes for Google autocomplete Fragment --->
 
-        allSavedLocations()
 
+        locationViewModel.favLocationsList.observe(viewLifecycleOwner) {
+            locationWeather.clear()
+            for (loc in it) {
+                locationViewModel.getCurrentWeather(
+                    loc.latitude,
+                    loc.longitude,
+                    weatherApiKey,
+                    units
+                )
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeBy(
+                        onNext = {
+                            var currentTemp = it.current.temp
+                            var maxTemp = it.daily.first().temp.max
+                            var minTemp = it.daily.first().temp.min
+                            var pop = it.daily.first().pop
+                            var icon = it.daily.first().weather.first().icon
+                            locationWeather.add(LocationWeather(currentTemp, maxTemp, minTemp, pop, icon ,loc))
+                        },
+                        onComplete = {
+                            locWeatherList.clear()
+                            locationWeather.sortByDescending {it.favLocations.id}
+                            locWeatherList.addAll(locationWeather)
+                            adapter.notifyDataSetChanged()
+                        },
+                        onError = { e -> println("this is error $e") }
+
+                    )
+            }
+        }
 
         //Delete Fav Location
         adapter.setOnItemLongClickListener(object : LocationAdapter.OnItemLongClickListener {
@@ -97,6 +128,10 @@ class LocationsFragment : Fragment() {
                     }
                     .setPositiveButton("Yes") { _, _ ->
                         locationViewModel.deleteFavLocation(deleteLocation)
+                        if(locWeatherList.size == 1){
+                            locWeatherList.clear()
+                            adapter.notifyDataSetChanged()
+                        }
                         Toast.makeText(context, "$locName is deleted", Toast.LENGTH_LONG).show()
                     }.show()
             }
@@ -145,35 +180,6 @@ class LocationsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun allSavedLocations() {
-        locationViewModel.favLocationsList.observe(viewLifecycleOwner) {
-            locationWeather.clear()
-            for (loc in it) {
-                locationViewModel.getCurrentWeather(
-                    loc.latitude,
-                    loc.longitude,
-                    weatherApiKey,
-                    units
-                )
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeBy(
-                        onNext = {
-                            locationWeather.add(LocationWeather(it,loc))
-                        },
-                        onComplete = {
-                            locWeatherList.clear()
-                            locationWeather.sortByDescending {it.favLocations.id}
-                            locWeatherList.addAll(locationWeather)
-                            adapter.notifyDataSetChanged()
-                        },
-                        onError = { e -> println("this is error $e") }
-
-                    )
-            }
-        }
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -182,17 +188,28 @@ class LocationsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.degreeUnit -> {
-                if (units == "metric") {
+                if (units.equals("metric")) {
                     units = "imperial"
                     item.setIcon(R.drawable.unit_imperial)
                     item.setTitle("Imperial Units")
+                    for(loc in locWeatherList){
+                        loc.currentTemp = (loc.currentTemp * (9.0/5.0)) + 32.0
+                        loc.maxTemp = (loc.maxTemp * (9.0/5.0)) + 32.0
+                        loc.minTemp = (loc.minTemp * (9.0/5.0)) + 32.0
+                    }
+                    adapter.notifyDataSetChanged()
 
                 } else {
                     units = "metric"
                     item.setIcon(R.drawable.unit_metric)
                     item.setTitle("Metric Units")
+                    for(loc in locWeatherList){
+                        loc.currentTemp = (loc.currentTemp - 32.0) * (5.0/9.0)
+                        loc.maxTemp = (loc.maxTemp - 32.0) * (5.0/9.0)
+                        loc.minTemp = (loc.minTemp - 32.0) * (5.0/9.0)
+                    }
+                    adapter.notifyDataSetChanged()
                 }
-                allSavedLocations()
 
                 super.onOptionsItemSelected(item)
             }

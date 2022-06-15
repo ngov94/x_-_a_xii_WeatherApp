@@ -32,10 +32,10 @@ class LocationAdapter(private val locationList: List<LocationWeather>) : Recycle
         val item = locationList[position]
 
 
-        holder.itemCurTextView.text = item.weather?.current?.temp?.roundToInt().toString()+ "°"
-        holder.itemMaxTextView.text = item.weather?.daily?.first()?.temp?.max?.roundToInt().toString()+ "°"
-        holder.itemMinTextView.text = item.weather?.daily?.first()?.temp?.min?.roundToInt().toString()+ "°"
-        holder.itemPrecipTextView.text = (item.weather?.daily?.first()?.pop?.times(100))?.roundToInt().toString()+ "%"
+        holder.itemCurTextView.text = item.currentTemp.roundToInt().toString()+ "°"
+        holder.itemMaxTextView.text = item.maxTemp.roundToInt().toString()+ "°"
+        holder.itemMinTextView.text = item.minTemp.roundToInt().toString()+ "°"
+        holder.itemPrecipTextView.text = (item.pop.times(100)).roundToInt().toString()+ "%"
         holder.itemLocationTextView.text = item.favLocations.placeName
 
         //Will not be visible, passing for deletion
@@ -44,7 +44,7 @@ class LocationAdapter(private val locationList: List<LocationWeather>) : Recycle
         holder.itemLocationIdTextView.text = item.favLocations.id.toString()
 
 
-        var icon = when (item.weather?.daily?.first()?.weather?.first()?.icon){
+        var icon = when (item.icon){
             "01d" -> R.drawable.w_clear_sky_day
             "01n" -> R.drawable.w_clear_sky_night
             "02d" -> R.drawable.w_few_clouds_day

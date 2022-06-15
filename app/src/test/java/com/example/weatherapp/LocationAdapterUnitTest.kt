@@ -22,22 +22,7 @@ class LocationAdapterUnitTest {
         MockitoAnnotations.openMocks(this)
         fakeLocationList = listOf(
             LocationWeather(
-                AllWeather(listOf(
-                    Alert("Fire in Woods", 2,"Fire",
-                "Jessica",1,listOf("fire","danger"))
-                ),(Current(1,2.2,2,2.2,
-                2,2,2,2,2.2,2.2,2,
-                listOf(Weather("Cloudy", "04d", 1, "cloudy")), 2,
-                2.2)),
-                listOf(Daily(2,2.2,2, FeelsLike(2.2,2.2,2.2,2.2),
-                    2,2.2,2,2.2,2,2,Temp(2.2,2.2,2.2,
-                        2.2,2.2,2.2),2.2,listOf(Weather("Cloudy",
-                        "04d", 2,"cloudy")),2,2.2,2.2)),
-                listOf(Hourly(2,2.2,2,2.2,2,2.2,2,
-                    Rain(2.2),2.2,2.2,2,
-                    listOf(Weather("Cloudy", "04d", 1, "cloudy")),2,
-                    2.2,2.2)),2.2,2.2,
-                listOf(Minutely(2,2.2)),"PST",12345),
+                2.2, 2.2, 2.2, 2.2, "04d",
                 FavLocations(null,"LA", "70", "70")
             ))
         adapter = LocationAdapter(fakeLocationList)
