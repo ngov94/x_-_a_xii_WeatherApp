@@ -16,12 +16,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ActivityMainBinding
+import com.example.weatherapp.log.DebugTree
 import com.example.weatherapp.ui.currentlocation.CurrentLocationFragment
 import com.example.weatherapp.ui.locations.LocationsFragment
 import com.example.weatherapp.ui.weekly.WeeklyFragment
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import java.lang.Exception
+import timber.log.Timber
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,16 +39,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        Timber.plant(DebugTree())
 
-        supportActionBar!!.title = "Weather App"
+        try {
+            binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+        }catch (e: Exception){
+            Timber.e(e)
+        }
 
-        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentLocation, "3").hide(fragmentLocation).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentWeekly, "2").hide(fragmentWeekly).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentCurrentLocation, "1").commit()
+
+        try {
+            fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentLocation, "3")
+                .hide(fragmentLocation).commit()
+            fm.beginTransaction().add(R.id.nav_host_fragment_activity_main, fragmentWeekly, "2")
+                .hide(fragmentWeekly).commit()
+            fm.beginTransaction()
+                .add(R.id.nav_host_fragment_activity_main, fragmentCurrentLocation, "1").commit()
+        }catch (e: Exception){
+            Timber.e(e)
+        }
 
         val content: View = findViewById(android.R.id.content)
+
+        //Splash Page
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {

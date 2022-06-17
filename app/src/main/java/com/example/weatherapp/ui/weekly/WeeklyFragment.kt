@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
 import com.example.weatherapp.data.APIResponse.Daily
 import com.example.weatherapp.databinding.FragmentWeeklyBinding
+import com.example.weatherapp.log.BaseFragment
+import com.example.weatherapp.log.DebugTree
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
 
-class WeeklyFragment : Fragment() {
+class WeeklyFragment : BaseFragment() {
 
     private var _binding: FragmentWeeklyBinding? = null
 
@@ -32,6 +35,8 @@ class WeeklyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        Timber.plant(DebugTree())
+
         setHasOptionsMenu(true)
         _binding = FragmentWeeklyBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -41,17 +46,23 @@ class WeeklyFragment : Fragment() {
         binding.futureRecycler.adapter = adapter
         binding.futureRecycler.layoutManager = LinearLayoutManager(activity)
 
-        setFragmentResultListener("key_to_weekly"){key,result ->
-            weeklyList.clear()
-            weeklyList.addAll(result.get("daily") as List<Daily>)
-            adapter.notifyDataSetChanged()
+        try {
+            setFragmentResultListener("key_to_weekly") { key, result ->
+                weeklyList.clear()
+                weeklyList.addAll(result.get("daily") as List<Daily>)
+                adapter.notifyDataSetChanged()
 
-            //Date Range on top
-            var dateNow = SimpleDateFormat("MMMM d").format(weeklyList.first().dt.toLong()*1000)
-            var dateWeekfromNow = SimpleDateFormat("MMMM d").format(weeklyList.last().dt.toLong()*1000)
+                //Date Range on top
+                var dateNow =
+                    SimpleDateFormat("MMMM d").format(weeklyList.first().dt.toLong() * 1000)
+                var dateWeekfromNow =
+                    SimpleDateFormat("MMMM d").format(weeklyList.last().dt.toLong() * 1000)
 
-            binding.dateRangeLabel.text = dateNow +" - "+ dateWeekfromNow
+                binding.dateRangeLabel.text = dateNow + " - " + dateWeekfromNow
 
+            }
+        }catch (e: Exception){
+            Timber.e(e)
         }
 
         return root
