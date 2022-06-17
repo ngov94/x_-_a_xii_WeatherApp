@@ -19,6 +19,9 @@ import com.example.weatherapp.databinding.ActivityMainBinding
 import com.example.weatherapp.ui.currentlocation.CurrentLocationFragment
 import com.example.weatherapp.ui.locations.LocationsFragment
 import com.example.weatherapp.ui.weekly.WeeklyFragment
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         supportActionBar!!.title = "Weather App"
 
@@ -87,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+
 
     }
 
