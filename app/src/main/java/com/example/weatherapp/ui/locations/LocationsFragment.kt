@@ -18,6 +18,8 @@ import com.example.weatherapp.data.DataBase.WeatherDatabase
 import com.example.weatherapp.data.RetroApiInterface
 import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.databinding.ActivityLocationsFragmentBinding
+import com.example.weatherapp.log.BaseFragment
+import com.example.weatherapp.log.DebugTree
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
@@ -29,10 +31,11 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.limited_favorites_inflatable.view.*
+import timber.log.Timber
 import kotlin.math.roundToInt
 
 
-class LocationsFragment : Fragment() {
+class LocationsFragment : BaseFragment() {
 
     private var _binding: ActivityLocationsFragmentBinding? = null
     private val binding get() = _binding!!
@@ -52,11 +55,17 @@ class LocationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        setHasOptionsMenu(true)
-        val intr = RetroApiInterface.create()
-        val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
-        val repo = WeatherRepository(intr, dao)
-        locationViewModel = LocationViewModel(repo)
+        Timber.plant(DebugTree())
+
+        try {
+            setHasOptionsMenu(true)
+            val intr = RetroApiInterface.create()
+            val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
+            val repo = WeatherRepository(intr, dao)
+            locationViewModel = LocationViewModel(repo)
+        }catch (e: Exception){
+            Timber.e(e)
+        }
 
 
         _binding = ActivityLocationsFragmentBinding.inflate(inflater, container, false)

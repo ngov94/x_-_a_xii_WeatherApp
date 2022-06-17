@@ -10,6 +10,8 @@ import com.example.weatherapp.data.DataBase.WeatherDatabase
 import com.example.weatherapp.data.RetroApiInterface
 import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.databinding.FragmentCurrentLocationBinding
+import com.example.weatherapp.log.BaseFragment
+import com.example.weatherapp.log.DebugTree
 import com.example.weatherapp.ui.WeatherViewModel
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -22,11 +24,12 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_current_location.*
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class CurrentLocationFragment : Fragment() {
+class CurrentLocationFragment : BaseFragment() {
 
     private var _binding: FragmentCurrentLocationBinding? = null
     private val binding get() = _binding!!
@@ -50,11 +53,18 @@ class CurrentLocationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        Timber.plant(DebugTree())
+
         setHasOptionsMenu(true)
-        val intr = RetroApiInterface.create()
-        val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
-        val repo = WeatherRepository(intr, dao)
-        currentLocationViewModel = WeatherViewModel(repo)
+
+        try {
+            val intr = RetroApiInterface.create()
+            val dao = WeatherDatabase.getInstance(this.requireContext())?.weatherDao()!!
+            val repo = WeatherRepository(intr, dao)
+            currentLocationViewModel = WeatherViewModel(repo)
+        }catch (e: Exception){
+            Timber.e("Exception Caught: $e")
+        }
 
         _binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -168,6 +178,36 @@ class CurrentLocationFragment : Fragment() {
                     binding.hourlyIconFive.setImageDrawable(context?.getDrawable(setIcon(it.hourly[5].weather[0].icon)))
                     binding.tempFive.text = it.hourly[5].temp.roundToInt().toString()
                     binding.timeFive.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[5].dt.toLong()*1000))
+
+                    binding.hourlyIconSix.setImageDrawable(context?.getDrawable(setIcon(it.hourly[6].weather[0].icon)))
+                    binding.tempSix.text = it.hourly[6].temp.roundToInt().toString()
+                    binding.timeSix.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[6].dt.toLong()*1000))
+
+                    binding.hourlyIconSeven.setImageDrawable(context?.getDrawable(setIcon(it.hourly[7].weather[0].icon)))
+                    binding.tempSeven.text = it.hourly[7].temp.roundToInt().toString()
+                    binding.timeSeven.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[7].dt.toLong()*1000))
+
+                    binding.hourlyIconEight.setImageDrawable(context?.getDrawable(setIcon(it.hourly[8].weather[0].icon)))
+                    binding.tempEight.text = it.hourly[8].temp.roundToInt().toString()
+                    binding.timeEight.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[8].dt.toLong()*1000))
+
+                    binding.hourlyIconNine.setImageDrawable(context?.getDrawable(setIcon(it.hourly[9].weather[0].icon)))
+                    binding.tempNine.text = it.hourly[9].temp.roundToInt().toString()
+                    binding.timeNine.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[9].dt.toLong()*1000))
+
+                    binding.hourlyIconTen.setImageDrawable(context?.getDrawable(setIcon(it.hourly[10].weather[0].icon)))
+                    binding.tempTen.text = it.hourly[10].temp.roundToInt().toString()
+                    binding.timeTen.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[10].dt.toLong()*1000))
+
+                    binding.hourlyIconEleven.setImageDrawable(context?.getDrawable(setIcon(it.hourly[11].weather[0].icon)))
+                    binding.tempEleven.text = it.hourly[11].temp.roundToInt().toString()
+                    binding.timeEleven.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[11].dt.toLong()*1000))
+
+                    binding.hourlyIconTwelve.setImageDrawable(context?.getDrawable(setIcon(it.hourly[12].weather[0].icon)))
+                    binding.tempTwelve.text = it.hourly[12].temp.roundToInt().toString()
+                    binding.timeTwelve.text = SimpleDateFormat("h:mm a").format(Date(it.hourly[12].dt.toLong()*1000))
+
+
 
                     //alerts
                     if (it.alerts != null){
